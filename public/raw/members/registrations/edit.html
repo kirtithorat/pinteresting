@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Pinteresting </title>
+	</head>
+	<body>
+		<a href="../../launch/pinboard.html"> Pinteresting </a> 
+		<a href="edit.html"> Settings </a> 
+		<a href="../../launch/pinboard.html"> Log Out </a> <br>	
+		<form action="../dashboard.html" method="post">
+			<div>
+				<label for="name"> Name </label>
+				<input type="text" name="firstname" value="Kirti">
+				<input type="text" name="lastname" value="Thorat"> 
+			</div>
+			<div>
+				<label for="email"> Email Address </label>
+				<input type="text" name="email" value="kirti@example.com"> 
+			</div>
+			<div>
+				<label for="password"> New Password </label>
+				<input type="password" name="password"> 
+			</div>
+			<div>
+				<label for="password"> Confirm New Password </label>
+				<input type="password" name="password"> 
+			</div>
+			<div>
+				<label for="avatar"> Change Picture </label>
+				<input type=button value="Choose File">
+				<img src="../../images/avatar.png" alt="Member Image" title="Kirti Image"> <br>
+			</div>
+			<div>
+				<label for="description"> About You </label>
+				<textarea name="description"> </textarea>
+			</div>
+			<div>
+				<label for="location"> Location </label>
+				<select name="location">
+				  <option> United States </option>
+				  <option> India </option>
+				  <option> UK </option>
+				</select>
+			</div>
+			<div>
+				<label for="gender"> Gender </label>
+				<input type="radio" name="gender" value="female"  checked>
+				<label for="female"> Female </label>
+				<input type="radio" name="gender" value="male">
+				<label for="male"> Male </label> 
+			</div>
+			<a href="../../launch/pinboard.html"> Deactivate Account </a> &nbsp;
+			<a href="../dashboard.html"> Cancel </a> &nbsp;
+			<a href="../dashboard.html"> Save Profile </a> 
+		</form>
+	</body>
+</html>
