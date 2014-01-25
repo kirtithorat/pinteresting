@@ -12,4 +12,6 @@ gem 'paperclip', '~> 3.5.3'
 
 group :development, :test do
 	gem 'sqlite3'	
+	gem 'rspec-rails', '~> 2.14.1'
+	gem 'capybara', '~> 2.2.1'
 end 
