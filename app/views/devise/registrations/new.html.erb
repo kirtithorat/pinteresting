@@ -1,0 +1,38 @@
+<h2>Join Us</h2>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+   <div> 
+      <%= f.text_field :firstname, :placeholder => "First Name" ,:autofocus => true %>
+      <%= f.text_field :lastname, :placeholder => "Last Name" %> 
+   </div>
+
+    <div>
+      <%= f.email_field :email, :placeholder => "Email Address" %>
+    </div>
+
+    <div>
+      <%= f.password_field :password, :placeholder => "Password" %>
+    </div>
+    <div>
+      <%= f.password_field :password_confirmation , :placeholder => "Confirm Password"%>
+    </div>
+    <div>
+      <%= f.select :location, :options => ["United States", "India", "UK"] %>
+    </div>
+    <div>
+      <%= f.radio_button :gender, :female  %>
+      <%= f.label :female %>
+      <%= f.radio_button :gender, :male %>
+      <%= f.label :male %> 
+    </div>
+    <div>
+      <%= link_to "Cancel", root_path %>
+      <%= f.submit "Join" %>
+     <!-- 
+     <input type = "image" src = "submit.jpg" value = "Join" name = "commit"> 
+     -->
+
+    </div>
+<% end %>

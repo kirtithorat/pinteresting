@@ -1,0 +1,7 @@
+<% if member_signed_in? %>
+	<%= link_to "Pinteresting", dashboard_path %>
+    <%= link_to "Settings", edit_member_registration_path %>
+    <%= link_to "Log Out", destroy_member_session_path, method: :delete %>
+<% else %>
+    <%= link_to "Pinteresting", root_path %>
+<% end %>

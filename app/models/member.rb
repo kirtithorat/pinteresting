@@ -5,4 +5,8 @@ class Member < ActiveRecord::Base
     :recoverable, :rememberable, :trackable, :validatable
   has_many :boards
   has_many :pins, through: :boards
+
+  def name
+    self.firstname + " " + self.lastname
+  end
 end
