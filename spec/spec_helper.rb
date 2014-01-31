@@ -40,9 +40,14 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
-  
-  # included following line because of warning "[deprecated] I18n.enforce_available_locales 
+
+  # included following line because of warning "[deprecated] I18n.enforce_available_locales
   # will default to true in the future. If you really want to skip validation of your locale
   # you can set I18n.enforce_available_locales = false to avoid this message."
   I18n.enforce_available_locales = false
+
+  #config.after(:each) { Warden.test_reset! }
+
+  config.include FactoryGirl::Syntax::Methods
+
 end

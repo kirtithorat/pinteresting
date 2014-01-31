@@ -14,22 +14,22 @@
 ActiveRecord::Schema.define(version: 20140125191228) do
 
   create_table "boards", force: true do |t|
-    t.string   "name"
+    t.string   "name",        null: false
     t.text     "description"
-    t.string   "category"
-    t.integer  "members_id"
+    t.string   "category",    null: false
+    t.integer  "member_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "boards", ["members_id"], name: "index_boards_on_members_id"
+  add_index "boards", ["member_id"], name: "index_boards_on_member_id"
 
   create_table "members", force: true do |t|
-    t.string   "firstname"
-    t.string   "lastname"
+    t.string   "firstname",                           null: false
+    t.string   "lastname",                            null: false
     t.text     "description"
     t.string   "gender"
-    t.string   "location"
+    t.string   "location",                            null: false
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
@@ -52,16 +52,20 @@ ActiveRecord::Schema.define(version: 20140125191228) do
   add_index "members", ["reset_password_token"], name: "index_members_on_reset_password_token", unique: true
 
   create_table "pins", force: true do |t|
-    t.text     "description"
+    t.text     "description",                 null: false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.integer  "boards_id"
+    t.string   "{:null=>false}_file_name"
+    t.string   "{:null=>false}_content_type"
+    t.integer  "{:null=>false}_file_size"
+    t.datetime "{:null=>false}_updated_at"
+    t.integer  "board_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "pins", ["boards_id"], name: "index_pins_on_boards_id"
+  add_index "pins", ["board_id"], name: "index_pins_on_board_id"
 
 end

@@ -5,18 +5,19 @@ class ApplicationController < ActionController::Base
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
-	protected
+  protected
 
- 	def configure_permitted_parameters
-   devise_parameter_sanitizer.for(:sign_up) << :firstname << :lastname << :description << :gender << :avatar << :location
-   devise_parameter_sanitizer.for(:account_update) << :firstname << :lastname << :description << :gender << :avatar
- 	end
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_up) << :firstname << :lastname << :description << :gender << :avatar << :location
+    devise_parameter_sanitizer.for(:account_update) << :firstname << :lastname << :description << :gender << :avatar << :location
+  end
 
- 	def after_sign_in_path_for(resource)
+  def after_sign_in_path_for(resource)
     dashboard_path
   end
 
- 	def after_sign_up_path_for(resource)
+  def after_sign_up_path_for(resource)
     dashboard_path
   end
+  
 end

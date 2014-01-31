@@ -6,7 +6,23 @@ class Member < ActiveRecord::Base
   has_many :boards
   has_many :pins, through: :boards
 
-  def name
+  validates :firstname, :lastname, :location , presence: true
+
+  def fullname
     self.firstname + " " + self.lastname
   end
+
+  def pincount
+    @pincount = 0
+
+    self.boards.each do |board|
+      @pincount += board.pins.count
+    end
+    @pincount
+  end
+
+  def boardcount
+    @boardcount = self.boards.count
+  end
+
 end

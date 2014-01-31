@@ -1,5 +1,29 @@
 require 'spec_helper'
 
+shared_examples "Dashboard Page" do
+
+  describe "where it:" do
+
+    # include_examples "a Settings and Log Out link"
+    it { page.should have_link("Settings", :href => edit_member_registration_path) }
+
+    it { page.should have_link("Log Out", :href => destroy_member_session_path) }
+
+
+    it { page.should have_link("Edit", :href => edit_member_registration_path) }
+
+    it "matched Board count correctly against the database" do
+      page.should have_text("#{member.boardcount} Boards")
+    end
+
+    it "matched Pin count correctly against the database" do
+      page.should have_text("#{member.pincount} Pins")
+    end
+
+  end
+
+end
+
 describe "Launch Application" do
 
   before :each do
@@ -8,6 +32,11 @@ describe "Launch Application" do
 
   it "Display Home Page" do
     expect(page.status_code).to be 200
+  end
+
+  # check for <meta charset="UTF-8"> on every page
+  it "enforce that meta charset UTF-8 is declared at Application level layout" do
+    expect(page).to have_selector("head>meta[charset='UTF-8']", :visible => false)
   end
 
   describe "and make sure that it:" do
@@ -26,6 +55,73 @@ describe "Launch Application" do
 
     it "has Log In link" do
       expect(page).to have_link("Log In", :href => new_member_session_path)
+    end
+
+
+    context "Upon clicking on Log In link" do
+
+      before :each do
+        click_link "Log In"
+      end
+
+      it "Display Log In Page" do
+        expect(page.status_code).to be 200
+      end
+
+      describe "where it:" do
+
+        it "should display Log In text" do
+          expect(page).to have_text("Log In")
+        end
+
+        it { page.should have_selector("form#new_member[method = 'post'][action = '/members/sign_in']", :count => 1) }
+
+        it { page.should have_field("Email", :type => "email") }
+
+        it { page.should have_field("Password", :type => "password") }
+
+        it { page.should have_button("Log In") }
+
+        context "Upon filling the form with valid credentials" do
+
+          let(:logged_member) {build(:member)}
+
+          let(:member) { Member.find_by_email logged_member.email }
+
+          before(:each) do
+            create(:member)
+
+            fill_in "Email", with: logged_member.email
+            fill_in "Password", with: logged_member.password
+            click_button "Log In"
+          end
+
+          it "authenticate user and visit member Dashboard" do
+            expect(page.status_code).to be 200
+            expect(page).to have_text(logged_member.fullname)
+
+          end
+
+          include_examples "Dashboard Page"
+        end
+
+        context "Upon filling the form with invalid credentials" do
+
+          it "user authentication failed - Display Log In page again" do
+            logged_member= build(:member)
+
+            fill_in "Email", with: logged_member.email
+            fill_in "Password", with: logged_member.password
+            click_button "Log In"
+
+            expect(page.status_code).to be 200
+            expect(page).to have_selector("form#new_member[method = 'post'][action = '/members/sign_in']", :count => 1)
+          end
+
+        end
+
+      end
+
     end
 
     context "Upon clicking on Join Us link" do
@@ -81,6 +177,7 @@ describe "Launch Application" do
           it "Display Home Page" do
             click_link "Cancel"
             expect(page.status_code).to be 200
+            expect(page).to have_text("Save all the stuff you love (recipes! articles! travel ideas!) right here on Pinteresting.")
           end
 
         end
@@ -95,107 +192,53 @@ describe "Launch Application" do
 
         context "Upon filling the form and clicking on Join button" do
 
-          before :each do
-            fill_in "First Name", with: "Kirti"
-            fill_in "Last Name", with: "Thorat"
-            fill_in "Email Address", with: "kirti@gmail.com"
-            fill_in "Password", with: "12345678"
-            fill_in "Confirm Password", with: "12345678"
-            select "UK", from: "member_location"
-            choose "member_gender_female"
+          let(:logged_member) {build(:member)}
+          # Non Lazy method must specify the Class name
+          # logged_member = FactoryGirl.build(:member)
+
+          let(:member) { Member.find_by_email logged_member.email }
+
+          before(:each) do
+            fill_in "First Name", with: logged_member.firstname
+            fill_in "Last Name", with: logged_member.lastname
+            fill_in "Email Address", with: logged_member.email
+            fill_in "Password", with: logged_member.password
+            fill_in "Confirm Password", with: logged_member.password
+            select logged_member.location, from: "member_location"
+            choose "member_gender_male"
             click_button "Join"
           end
-=begin
-          Lets test whether a new member is saved in database with the given "email".
-          The reason for not testing all other fields is that Devise gem will only store
-          email, password fields but within that password is encrypted. The only option here 
-          to test email.
-=end
-
-          let(:member) {Member.find_by_email "kirti@gmail.com"}
 
           it "A new member is registered" do
 =begin
-          Now lets test all other field names(except password because of encryption) 
-          supplied above. But before running any tests on them, field names must be 
-          permitted in the application controller as they won't be stored in database. 
-=end       
-            expect(member).to be_a Member
-            expect(member.firstname).to eq "Kirti"
-            expect(member.lastname).to eq "Thorat"
-            expect(member.location).to eq "UK"
-            expect(member.gender).to eq "female"
+          Lets test whether a new member is saved in database with the given details.
+          We have already assigned let(:member) which upon invoke will pull the record 
+          by unique email address(This is equivalent of "username").
+          The reason for not testing password is that Devise gem will store
+          password in encrypted format. But before running any tests on all field names, 
+          they must be permitted in the application controller as they won't be stored 
+          in database. 
+=end  
+            expect(member.firstname).to eq logged_member.firstname
+            expect(member.lastname).to eq logged_member.lastname
+            expect(member.location).to eq logged_member.location
+            expect(member.gender).to eq "male"
+
           end
 
           it "and Dashboard Page is displayed for that member" do
             expect(page.status_code).to be 200
+            expect(page).to have_text(logged_member.fullname)
           end
 
-          describe "where it:" do
+          include_examples "Dashboard Page"
 
-            include_examples "a Settings and Log Out link"
-
-            it { page.should have_link("Edit", :href => edit_member_registration_path) }
-
-            it "should display the member's full name" do
-              page.should have_text(member.name)
-            end
-
-            it "should display the member's description" do
-              page.should have_text(member.description)
-            end
-
-            it "should display Board count as 0" do
-              page.should have_text("0 Boards")
-            end
-
-            it "should display Pin count as 0" do
-              page.should have_text("0 Pins")
-            end
-
-            it { page.should have_link("Create a Board", :href => new_board_path) }
-
-            context "Upon clicking on Settings link" do
-
-              before :each do
-                click_link "Settings"
-              end
-
-              it "Display Account Settings Page" do
-                expect(page.status_code).to be 200
-              end
-
-              describe "where it:" do
-
-                include_examples "a Settings and Log Out link"
-
-                it { page.should have_selector("form#edit_member[method = 'post'][action = '/members']", :count => 1) }
-
-
-              end
-
-            end
-
-          end
         end
 
       end
 
     end
-=begin
-    context "Upon clicking on Log In link" do
 
-      before :each do
-        click_link "Log In"
-      end
-
-      it "Display Log In page" do
-        expect(page.status_code).to be 200
-      end
-
-
-    end
-=end
   end
 
 end
