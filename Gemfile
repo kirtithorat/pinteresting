@@ -11,8 +11,9 @@ gem 'devise', '~> 3.2.2'
 gem 'paperclip', '~> 3.5.3'
 
 group :development, :test do
-	gem 'sqlite3'	
-	gem 'rspec-rails', '~> 2.14.1'
-	gem 'capybara', '~> 2.2.1'
-	gem 'factory_girl_rails'
-end 
+  gem 'sqlite3'
+  gem 'rspec-rails', '~> 2.14.1'
+  gem 'capybara', '~> 2.2.1'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner', :git => "git://github.com/bmabey/database_cleaner.git"
+end

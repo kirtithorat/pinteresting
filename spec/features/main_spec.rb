@@ -1,29 +1,5 @@
 require 'spec_helper'
 
-shared_examples "Dashboard Page" do
-
-  describe "where it:" do
-
-    # include_examples "a Settings and Log Out link"
-    it { page.should have_link("Settings", :href => edit_member_registration_path) }
-
-    it { page.should have_link("Log Out", :href => destroy_member_session_path) }
-
-
-    it { page.should have_link("Edit", :href => edit_member_registration_path) }
-
-    it "matched Board count correctly against the database" do
-      page.should have_text("#{member.boardcount} Boards")
-    end
-
-    it "matched Pin count correctly against the database" do
-      page.should have_text("#{member.pincount} Pins")
-    end
-
-  end
-
-end
-
 describe "Launch Application" do
 
   before :each do
@@ -32,6 +8,9 @@ describe "Launch Application" do
 
   it "Display Home Page" do
     expect(page.status_code).to be 200
+    # To compare against _path use below
+    # uri = URI.parse(current_url).request_uri
+    expect(current_url).to eq root_url
   end
 
   # check for <meta charset="UTF-8"> on every page
@@ -57,6 +36,31 @@ describe "Launch Application" do
       expect(page).to have_link("Log In", :href => new_member_session_path)
     end
 
+    let(:logged_member) {build(:member)}
+    # Non Lazy method must specify the Class name
+    # logged_member = FactoryGirl.build(:member)
+
+    let(:member) { Member.find_by_email logged_member.email }
+
+
+    shared_examples "Dashboard Page" do
+
+      # include_examples "a Settings and Log Out link"
+      it { page.should have_link("Settings", :href => edit_member_registration_path) }
+
+      it { page.should have_link("Log Out", :href => destroy_member_session_path) }
+
+      mymember = FactoryGirl.build(:member)
+
+      it "should display full name of logged in member e.g. #{mymember.fullname}" do
+        expect(page).to have_text(logged_member.fullname)
+      end
+
+      it { page.should have_link("Edit", :href => edit_member_registration_path) }
+
+      it { page.should have_link("Create a Board", :href => new_board_path) }
+
+    end
 
     context "Upon clicking on Log In link" do
 
@@ -66,6 +70,7 @@ describe "Launch Application" do
 
       it "Display Log In Page" do
         expect(page.status_code).to be 200
+        expect(current_url).to eq new_member_session_url
       end
 
       describe "where it:" do
@@ -82,27 +87,61 @@ describe "Launch Application" do
 
         it { page.should have_button("Log In") }
 
-        context "Upon filling the form with valid credentials" do
+        context "Log In with valid credentials:" do
 
-          let(:logged_member) {build(:member)}
+          context "when no boards and no pins" do
 
-          let(:member) { Member.find_by_email logged_member.email }
+            before(:each) do
+              FactoryGirl.create(:member)
+              fill_in "Email", with: logged_member.email
+              fill_in "Password", with: logged_member.password
+              click_button "Log In"
+            end
 
-          before(:each) do
-            create(:member)
+            it "authenticate member and visit Dashboard" do
+              expect(page.status_code).to be 200
+              expect(current_url).to eq dashboard_url
+            end
 
-            fill_in "Email", with: logged_member.email
-            fill_in "Password", with: logged_member.password
-            click_button "Log In"
+            describe "where it:" do
+             include_examples "Dashboard Page"
+            end
+
           end
 
-          it "authenticate user and visit member Dashboard" do
-            expect(page.status_code).to be 200
-            expect(page).to have_text(logged_member.fullname)
+          context "when boards and or pins exists" do
+             FactoryGirl.create(:member)
 
+
+            before(:each) do
+              member = create(:member)
+              FactoryGirl.create(:board, member: member)
+              fill_in "Email", with: logged_member.email
+              fill_in "Password", with: logged_member.password
+              click_button "Log In"
+            end
+
+            it "authenticate member and visit member Dashboard" do
+              expect(page.status_code).to be 200
+              expect(current_url).to eq dashboard_url
+            end
+
+            describe "where it:" do
+
+              include_examples "Dashboard Page"
+
+              it "matched Board count correctly against the database" do
+                page.should have_text("#{member.boardcount} Boards")
+              end
+
+              it "matched Pin count correctly against the database" do
+                page.should have_text("#{member.pincount} Pins")
+              end
+
+            end
+            
           end
 
-          include_examples "Dashboard Page"
         end
 
         context "Upon filling the form with invalid credentials" do
@@ -115,7 +154,7 @@ describe "Launch Application" do
             click_button "Log In"
 
             expect(page.status_code).to be 200
-            expect(page).to have_selector("form#new_member[method = 'post'][action = '/members/sign_in']", :count => 1)
+            expect(current_url).to eq new_member_session_url
           end
 
         end
@@ -132,6 +171,7 @@ describe "Launch Application" do
 
       it "Display Member Registration page" do
         expect(page.status_code).to be 200
+        expect(current_url).to eq new_member_registration_url
       end
 
       describe "where it:" do
@@ -177,7 +217,7 @@ describe "Launch Application" do
           it "Display Home Page" do
             click_link "Cancel"
             expect(page.status_code).to be 200
-            expect(page).to have_text("Save all the stuff you love (recipes! articles! travel ideas!) right here on Pinteresting.")
+            expect(current_url).to eq root_url
           end
 
         end
@@ -191,12 +231,6 @@ describe "Launch Application" do
         end
 
         context "Upon filling the form and clicking on Join button" do
-
-          let(:logged_member) {build(:member)}
-          # Non Lazy method must specify the Class name
-          # logged_member = FactoryGirl.build(:member)
-
-          let(:member) { Member.find_by_email logged_member.email }
 
           before(:each) do
             fill_in "First Name", with: logged_member.firstname
@@ -228,10 +262,12 @@ describe "Launch Application" do
 
           it "and Dashboard Page is displayed for that member" do
             expect(page.status_code).to be 200
-            expect(page).to have_text(logged_member.fullname)
+            expect(current_url).to eq dashboard_url
           end
 
-          include_examples "Dashboard Page"
+          describe "where it:" do
+            include_examples "Dashboard Page"
+          end
 
         end
 

@@ -48,8 +48,8 @@ describe Devise::SessionsController do
 
 end
 
-=begin
 
+=begin
     # For future reference, figure out how to authenticate a member(warden.authenticate!)
     # controller.allow_params_authentication!
     # expect(controller.authenticate_member!(:scope => newmember, :force => true)).not_to be nil
@@ -66,6 +66,6 @@ end
       expect(controller.authenticate_member!(:scope => :member, :force => true)).not_to be nil
 
     end
+=end    
 
 
-=end
