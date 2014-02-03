@@ -8,6 +8,10 @@ class Member < ActiveRecord::Base
 
   validates :firstname, :lastname, :location , presence: true
 
+  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }
+  validates_attachment :avatar,
+    :content_type => { :content_type => ["image/jpg", "image/gif", "image/png"] }
+
   def fullname
     self.firstname + " " + self.lastname
   end

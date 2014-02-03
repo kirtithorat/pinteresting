@@ -1,6 +1,6 @@
 Pinteresting::Application.routes.draw do
 
-  root 'launch#pinboard'
+  root 'welcome#index'
   devise_for :members
 
   get "dashboard" => "members#dashboard"

@@ -104,18 +104,19 @@ describe "Launch Application" do
             end
 
             describe "where it:" do
-             include_examples "Dashboard Page"
+              include_examples "Dashboard Page"
             end
 
           end
 
           context "when boards and or pins exists" do
-             FactoryGirl.create(:member)
+            FactoryGirl.create(:member)
 
 
             before(:each) do
               member = create(:member)
-              FactoryGirl.create(:board, member: member)
+              board = FactoryGirl.create(:board, member: member)
+              FactoryGirl.create(:pin, board: board)
               fill_in "Email", with: logged_member.email
               fill_in "Password", with: logged_member.password
               click_button "Log In"
@@ -139,7 +140,7 @@ describe "Launch Application" do
               end
 
             end
-            
+
           end
 
         end
@@ -267,6 +268,43 @@ describe "Launch Application" do
 
           describe "where it:" do
             include_examples "Dashboard Page"
+
+            context "Upon clicking on Create a Board link" do
+
+              before(:each) do
+                click_link "Create a Board"
+              end
+
+              it "Display New Board page" do
+                expect(page.status_code).to be 200
+                expect(current_url).to eq new_board_url
+              end
+
+              describe "where it:" do
+
+                it "should have text \"Create a Board\" " do
+                  page.should have_text("Create a Board")
+                end
+
+                it { page.should have_field("Name") }
+
+                it { page.should have_field("Description") }
+
+                it { page.should have_select("Category") }
+
+                it { page.should have_link("Cancel", href: dashboard_path) }
+
+                it { page.should have_button("Create Board") }
+
+                context "Upon clicking on Create Board button" do
+                end
+
+                context "Upon clicking on Cancel link" do
+                end
+
+              end
+
+            end
           end
 
         end

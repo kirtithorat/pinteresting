@@ -52,15 +52,11 @@ ActiveRecord::Schema.define(version: 20140125191228) do
   add_index "members", ["reset_password_token"], name: "index_members_on_reset_password_token", unique: true
 
   create_table "pins", force: true do |t|
-    t.text     "description",                 null: false
+    t.text     "description",        null: false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.string   "{:null=>false}_file_name"
-    t.string   "{:null=>false}_content_type"
-    t.integer  "{:null=>false}_file_size"
-    t.datetime "{:null=>false}_updated_at"
     t.integer  "board_id"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -16,4 +16,9 @@ FactoryGirl.define do
   #  member
   end
 
+  factory :pin do
+    description "Flan"
+  #  board
+  end
+
 end
