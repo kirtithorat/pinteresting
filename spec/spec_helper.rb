@@ -54,7 +54,7 @@ RSpec.configure do |config|
   # config.include Capybara::RSpecMatchers
 
   config.before(:suite) do
-    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.clean_with(:truncation)
   end
 
@@ -72,11 +72,16 @@ RSpec.configure do |config|
   #    DatabaseCleaner.clean
   #  end
 
-# Cleaning worked because gem was sourced from github
+  # Cleaning worked because gem was sourced from github
   config.around(:each) do |example|
     DatabaseCleaner.cleaning do
       example.run
     end
   end
 
+   config.after(:each) do
+    if Rails.env.test?
+      FileUtils.rm_rf(Dir["/Users/kirti/Dropbox/Projects/RubyonRails/pinteresting/spec/support/uploads/"])
+    end
+  end
 end

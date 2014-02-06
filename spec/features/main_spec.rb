@@ -114,9 +114,7 @@ describe "Launch Application" do
 
 
             before(:each) do
-              member = create(:member)
-              board = FactoryGirl.create(:board, member: member)
-              FactoryGirl.create(:pin, board: board)
+              FactoryGirl.create(:pin)
               fill_in "Email", with: logged_member.email
               fill_in "Password", with: logged_member.password
               click_button "Log In"

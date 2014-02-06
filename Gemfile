@@ -9,6 +9,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'devise', '~> 3.2.2'
 gem 'paperclip', '~> 3.5.3'
+gem 'mini_magick'
 
 group :development, :test do
   gem 'sqlite3'

@@ -1,0 +1,7 @@
+[1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mMember Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM "members" WHERE "members"."email" = 'john@gmail.com' LIMIT 1[0m
+Binary data inserted for `string` type on column `encrypted_password`
+  [1m[35mSQL (3.5ms)[0m  INSERT INTO "members" ("created_at", "email", "encrypted_password", "firstname", "lastname", "location", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)  [["created_at", Wed, 05 Feb 2014 16:29:39 UTC +00:00], ["email", "john@gmail.com"], ["encrypted_password", "$2a$04$lEeBd0EusptjQFlvKhSds.7t4k1495XReEDh2bRz8EBSTluziPKsO"], ["firstname", "John"], ["lastname", "Doe"], ["location", "United States"], ["updated_at", Wed, 05 Feb 2014 16:29:39 UTC +00:00]]
+  .7ms)[0m  [1mDELETE FROM sqlite_sequence where name = 'boards';[0m
+  [1m[35m (0.7ms)[0m  DELETE FROM "pins"

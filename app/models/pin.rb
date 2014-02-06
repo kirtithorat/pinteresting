@@ -1,8 +1,19 @@
+require 'mini_magick'
+
 class Pin < ActiveRecord::Base
   belongs_to :board
-  has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>" }
-  validates :description, presence: true
-  #validates :image, :attachment_presence => true
+  # When :path and :url are not specified in "has_attached_file" then Paperclip
+  # will use its default path and default url as shown below:
+  # :path => :rails_root/public/system/:class/:attachment/:id_partition/:style/:filename
+  # :url => /system/:class/:attachment/:id_partition/:style/:filename
+  has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>" },
+    :path => '/Users/kirti/Dropbox/Projects/RubyonRails/pinteresting/spec/support/uploads/:class/:attachment/:id/:style/:basename.:extension',
+    :url => '/:class/:id/:attachment?style=:style'
+  validates :description, :board_id, presence: true
+  validates :image, image_encoding: true
+  validates :image, attachment_presence: true
   validates_attachment :image,
-    :content_type => { :content_type => ["image/jpg", "image/gif", "image/png"] }
+    :content_type => { :content_type => ["image/jpg", "image/gif", "image/png"] },
+    :size => {:in => 0..20.kilobytes}
+
 end

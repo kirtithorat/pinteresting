@@ -17,12 +17,13 @@ ActiveRecord::Schema.define(version: 20140125191228) do
     t.string   "name",        null: false
     t.text     "description"
     t.string   "category",    null: false
-    t.integer  "member_id"
+    t.integer  "member_id",   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "boards", ["member_id"], name: "index_boards_on_member_id"
+  add_index "boards", ["name"], name: "index_boards_on_name", unique: true
 
   create_table "members", force: true do |t|
     t.string   "firstname",                           null: false
@@ -57,7 +58,7 @@ ActiveRecord::Schema.define(version: 20140125191228) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
-    t.integer  "board_id"
+    t.integer  "board_id",           null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
