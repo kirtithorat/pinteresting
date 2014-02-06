@@ -3,28 +3,27 @@ require 'spec_helper.rb'
 describe Member do
 
   it "is valid with a firstname, lastname, email, password and location" do
-    expect(Member.new(firstname: "Kirti", lastname: "Thorat", email: "kirti@gmail.com",
-                      password: "12345678", location: "India")).to be_valid
+    expect(build(:member)).to be_valid
   end
 
-  it "is valid without an avatar" do
-    expect(Member.new(gender: nil)).to have(0).errors_on(:gender)
+  it "is valid without an gender" do
+    expect(build(:member, gender: nil)).to have(0).errors_on(:gender)
   end
 
-  it "is valid without a gender" do
-    expect(Member.new(avatar: nil)).to have(0).errors_on(:avatar)
+  it "is valid without a avatar" do
+    expect(build(:member, avatar: nil)).to have(0).errors_on(:avatar)
   end
 
   it "is invalid without a firstname" do
-    expect(Member.new(firstname: nil)).to have(1).errors_on(:firstname)
+    expect(build(:member, firstname: nil)).to have(1).errors_on(:firstname)
   end
 
   it "is invalid without a lastname" do
-    expect(Member.new(lastname: nil)).to have(1).errors_on(:lastname)
+    expect(build(:member, lastname: nil)).to have(1).errors_on(:lastname)
   end
 
   it "is invalid without an email" do
-    expect(Member.new(email: nil)).to have(1).errors_on(:email)
+    expect(build(:member, email: nil)).to have(1).errors_on(:email)
   end
 
   it "is invalid with a duplicate email" do
@@ -33,22 +32,22 @@ describe Member do
   end
 
   it "is invalid without a password" do
-    expect(Member.new(password: nil)).to have(1).errors_on(:password)
+    expect(build(:member, password: nil)).to have(1).errors_on(:password)
   end
 
   it "is invalid without a location" do
-    expect(Member.new(location: nil)).to have(1).errors_on(:location)
+    expect(build(:member, location: nil)).to have(1).errors_on(:location)
   end
 
   it "avatar with size > 20K is invalid" do
     avatar = File.new("#{Rails.root}/spec/support/large.jpg")
-    member = Member.new(avatar: avatar)
+    member = build(:member, avatar: avatar)
     expect(member).to have(1).errors_on(:avatar_file_size)
   end
 
   it "avatar with incorrect extension is invalid" do
     avatar = File.new("#{Rails.root}/spec/support/wrong.txt")
-    member = Member.new(avatar: avatar)
+    member = build(:member, avatar: avatar)
     expect(member).to have(1).errors_on(:avatar_content_type)
   end
 
@@ -59,7 +58,8 @@ describe Member do
   end
 
   it "#fullname: returns a Member's full name as a string" do
-    expect(Member.new(firstname: "Kirti", lastname: "Thorat").fullname).to eq "Kirti Thorat"
+    member = build(:member)
+    expect(member.fullname).to eq member.firstname + " " + member.lastname
   end
 
   it "#boardcount: returns the number of Board's created by a Member" do
