@@ -3,7 +3,9 @@ Pinteresting::Application.routes.draw do
   root 'welcome#index'
   devise_for :members
 
-  get "dashboard" => "members#dashboard"
+  devise_scope :member do
+    get "dashboard", :to => "members#dashboard"
+  end
 
   resources :boards
   # The priority is based upon order of creation: first created -> highest priority.

@@ -21,7 +21,7 @@ describe Board do
     expect(Board.new(name: existing_board.name)).to have(1).errors_on(:name)
   end
 
-  it "is invalid without an category" do
+  it "is invalid without a category" do
     expect(build(:board, category: nil)).to have(1).errors_on(:category)
   end
 

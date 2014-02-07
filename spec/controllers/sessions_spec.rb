@@ -1,9 +1,5 @@
 require 'spec_helper'
 
-include Warden::Test::Helpers
-include Devise::TestHelpers
-Warden.test_mode!
-
 describe Devise::SessionsController do
 
   context "Authenticate Member" do
@@ -16,7 +12,6 @@ describe Devise::SessionsController do
       # that record would be stored in test database permanently and
       # wouldn't be rolled back
       create(:member)
-      #expect(member.firstname).to eq "John"
 
       @request.env["devise.mapping"] = Devise.mappings[:member]
       @request.env["warden"] = warden
@@ -50,6 +45,9 @@ end
 
 
 =begin
+    include Warden::Test::Helpers
+    include Devise::TestHelpers
+    Warden.test_mode!
     # For future reference, figure out how to authenticate a member(warden.authenticate!)
     # controller.allow_params_authentication!
     # expect(controller.authenticate_member!(:scope => newmember, :force => true)).not_to be nil
@@ -67,5 +65,3 @@ end
 
     end
 =end    
-
-

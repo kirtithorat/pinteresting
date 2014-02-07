@@ -7,8 +7,8 @@ class MembersController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def load_dashboard
-    @mymember = current_member
-   # @boards = Board.where(members_id: @mymember.id)
+    @member = current_member
+    @boards = @member.boards
   end
 
 end

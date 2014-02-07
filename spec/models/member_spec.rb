@@ -6,11 +6,11 @@ describe Member do
     expect(build(:member)).to be_valid
   end
 
-  it "is valid without an gender" do
+  it "is valid without a gender" do
     expect(build(:member, gender: nil)).to have(0).errors_on(:gender)
   end
 
-  it "is valid without a avatar" do
+  it "is valid without an avatar" do
     expect(build(:member, avatar: nil)).to have(0).errors_on(:avatar)
   end
 
