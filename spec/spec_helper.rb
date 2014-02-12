@@ -79,7 +79,7 @@ RSpec.configure do |config|
     end
   end
 
-   config.after(:each) do
+  config.after(:each) do
     if Rails.env.test?
       FileUtils.rm_rf(Dir["/Users/kirti/Dropbox/Projects/RubyonRails/pinteresting/spec/support/uploads/"])
     end

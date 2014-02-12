@@ -1,0 +1,18 @@
+<h1>Edit Pin</h1>
+<%= form_for @pin, :html => { :multipart => true }  do |f| %>
+  <%= render 'errors' %>
+  <div>
+    <%= f.label "Board Name" %>
+    <%= f.select :board_id, @boards.collect{ |b| [b.name, b.id] } %>
+  </div>
+  <div>
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </div>
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>
+<%= link_to 'Show', @pin %>
+|
+<%= link_to 'Back', dashboard_path %>

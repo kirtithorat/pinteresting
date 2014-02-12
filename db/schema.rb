@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20140125191228) do
   end
 
   add_index "boards", ["member_id"], name: "index_boards_on_member_id"
-  add_index "boards", ["name"], name: "index_boards_on_name", unique: true
+  add_index "boards", ["name", "member_id"], name: "index_boards_on_name_and_member_id", unique: true
 
   create_table "members", force: true do |t|
     t.string   "firstname",                           null: false

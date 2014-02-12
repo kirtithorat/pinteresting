@@ -1,10 +1,9 @@
 class BoardsController < ApplicationController
 
-  before_action :board_params, only: [:create, :update]
   before_action :set_board, only: [:show, :edit, :update, :destroy]
 
   def index
-    @boards = Board.order(id: :desc)
+    @boards = Board.where(member_id: current_member.id)
   end
 
   def new

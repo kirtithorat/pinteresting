@@ -1,7 +1,7 @@
 <% unless @boards.nil? %>
   <% @boards.each do |board| %>
     <div>
-      <%= board.id %>
+      <%= board.name %>
       <%= link_to 'Show', board %>
       <%= link_to 'Edit', edit_board_path(board) %>
       <%= link_to 'Destroy', board, method: :delete, data: { confirm: 'Are you sure?' } %>

@@ -6,10 +6,12 @@ describe BoardsController do
     @request.env["devise.mapping"] = Devise.mappings[:member]
   }
 
-  it "GET #new: renders new board page" do
-    get :new
-    expect(assigns(:board)).to be_a_new(Board)
-    expect(response).to render_template :new
+  describe "GET #new" do
+    it "renders new board page" do
+      get :new
+      expect(assigns(:board)).to be_a_new(Board)
+      expect(response).to render_template :new
+    end
   end
 
   describe "POST #create:" do
@@ -21,8 +23,9 @@ describe BoardsController do
     context "with valid attributes" do
 
       it "creates a board in the database" do
-        post :create, :board => attributes_for(:board)
-        expect(Board.find_by(name: "Food Board")).not_to be nil
+        # post :create, :board => attributes_for(:board)
+        # expect(Board.find_by(name: "Food Board")).not_to be nil
+        expect { post :create, :board => attributes_for(:board) }.to change(Board, :count).by(1)
       end
 
       it "and redirects to dashboard page" do
@@ -35,8 +38,7 @@ describe BoardsController do
     context "with invalid attributes" do
 
       it "does not create a board in the database" do
-        post :create, :board => attributes_for(:board, category: nil)
-        expect(Board.find_by(name: "Food Board")).to be nil
+        expect { post :create, :board => attributes_for(:board, category: nil) }.not_to change(Board, :count)
       end
 
       it "and re-renders new board page" do
@@ -48,18 +50,22 @@ describe BoardsController do
 
   end
 
-  it "GET #show: renders show board page" do
-    board = create(:board)
-    get :show, id: board
-    expect(assigns(:board)).to eq board
-    expect(response).to render_template :show
+  describe "GET #show" do
+    it "renders show board page" do
+      board = create(:board)
+      get :show, id: board
+      expect(assigns(:board)).to eq board
+      expect(response).to render_template :show
+    end
   end
 
-  it "GET #edit: renders edit board page" do
-    board = create(:board)
-    get :edit, id: board
-    expect(assigns(:board)).to eq board
-    expect(response).to render_template :edit
+  describe "GET #edit" do
+    it "renders edit board page" do
+      board = create(:board)
+      get :edit, id: board
+      expect(assigns(:board)).to eq board
+      expect(response).to render_template :edit
+    end
   end
 
   describe "PATCH #update:" do

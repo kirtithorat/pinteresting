@@ -13,7 +13,7 @@ FactoryGirl.define do
     description "Get delicious food pics!"
     category "Food"
     association :member, factory: :member #, strategy: :build
-    # If the factory name is the same as the association name, the factory name 
+    # If the factory name is the same as the association name, the factory name
     # can be left out and it can be declared as shown below
     # association :member
     # association :member can also be shorten as below
@@ -22,8 +22,10 @@ FactoryGirl.define do
 
   factory :pin do
     description "Flan"
-   # image File.new(File.join(Rails.root, 'spec', 'support', 'google.png'))
-    image File.new("#{Rails.root}/spec/support/google.png")
+    # image File.new(File.join(Rails.root, 'spec', 'support', 'google.png'))
+    # image File.new("#{Rails.root}/spec/support/google.png")
+    # image Rack::Test::UploadedFile.new("#{Rails.root}/spec/support/google.png")
+    image Rack::Test::UploadedFile.new("#{Rails.root}/spec/support/google.png", "image/png")
     board
   end
 

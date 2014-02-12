@@ -32,11 +32,13 @@ describe Pin do
     image = File.new("#{Rails.root}/spec/support/wrong.txt")
     expect(build(:pin, image: image)).to have(1).errors_on(:image_content_type)
   end
- 
+
   it "is invalid with improper image header" do
     image = File.new("#{Rails.root}/spec/support/test.png")
-    pin = Pin.create( image: image)
-    # expect(pin).not_to have(:no).errors_on(:image)
+    board = create(:board)
+    pin = Pin.create( image: image, board_id: board.id, description: "Pin 1")
+    #expect(pin).not_to have(:no).errors_on(:image)
+    #  expect(pin.errors[:image]).to eq "hello"
     expect(pin.errors[:image]).to include "is of invalid type"
   end
 

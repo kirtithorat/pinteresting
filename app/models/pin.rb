@@ -6,12 +6,14 @@ class Pin < ActiveRecord::Base
   # will use its default path and default url as shown below:
   # :path => :rails_root/public/system/:class/:attachment/:id_partition/:style/:filename
   # :url => /system/:class/:attachment/:id_partition/:style/:filename
-  has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>" },
+  has_attached_file :image,
+    :styles => { :medium => "300x300>", :thumb => "100x100>" },
     :path => '/Users/kirti/Dropbox/Projects/RubyonRails/pinteresting/spec/support/uploads/:class/:attachment/:id/:style/:basename.:extension',
-    :url => '/:class/:id/:attachment?style=:style'
+    :url => '/spec/support/uploads/:class/:attachment/:id/:style/:basename.:extension'
   validates :description, :board_id, presence: true
-  validates :image, image_encoding: true
   validates :image, attachment_presence: true
+
+  validates :image, image_encoding: true
   validates_attachment :image,
     :content_type => { :content_type => ["image/jpg", "image/gif", "image/png"] },
     :size => {:in => 0..20.kilobytes}

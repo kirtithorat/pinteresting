@@ -1,0 +1,11 @@
+<div>
+ <%= image_tag @pin.image.url(:medium) %>
+</div>
+       
+<p>
+  <strong>Description:</strong>
+  <%= @pin.description %>
+</p>
+
+<%= link_to 'Edit', edit_pin_path(@pin) %> |
+<%= link_to 'Back', board_path(@pin.board) %>

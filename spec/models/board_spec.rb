@@ -16,9 +16,9 @@ describe Board do
     expect(build(:board, name: nil)).to have(1).errors_on(:name)
   end
 
-  it "is invalid with a duplicate name" do
+  it "is invalid with a duplicate name for a given member" do
     existing_board = create(:board)
-    expect(Board.new(name: existing_board.name)).to have(1).errors_on(:name)
+    expect(Board.new(name: existing_board.name, member_id: existing_board.member_id)).to have(1).errors_on(:name)
   end
 
   it "is invalid without a category" do

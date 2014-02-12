@@ -1,0 +1,22 @@
+<h1>New Pin</h1>
+<%= form_for @pin, :html => { :multipart => true }  do |f| %>
+  <%= render 'errors' %>
+  <div>
+    <% unless @boards.nil? %>
+      <%= f.label "Board Name" %>
+      <%= f.select :board_id, @boards.collect { |b| [b.name, b.id ]}  %>
+      <%#  { |b| [b.name, b.id] }%>
+    <% end %>
+  </div>
+  <div>
+    <%= f.label :image %>
+    <%= f.file_field :image, class: "form-control" %>
+  </div>
+  <div>
+    <%= f.label :description %>
+    <%= f.text_field :description %>
+  </div>
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>

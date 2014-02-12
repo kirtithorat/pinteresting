@@ -9,7 +9,7 @@ class CreateBoards < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :boards, :name, :unique => true
+    add_index :boards, [:name, :member_id], unique: true
 
   end
 end
