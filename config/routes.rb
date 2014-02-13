@@ -5,6 +5,7 @@ Pinteresting::Application.routes.draw do
 
   get "dashboard", :to => "members#dashboard"
   
+  get ":id", :to => "members#dashboard"
 
   resources :boards do
       resources :pins, :shallow => true

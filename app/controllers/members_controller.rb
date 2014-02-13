@@ -7,7 +7,11 @@ class MembersController < ApplicationController
   private
   # Use callbacks to share common setup or constraints between actions.
   def load_dashboard
-    @member = current_member
+    if current_member.nil?
+      @member = Member.find(params[:id])
+    else
+      @member = current_member
+    end
     @boards = @member.boards
   end
 

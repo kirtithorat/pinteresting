@@ -39,7 +39,7 @@ describe Member do
     expect(build(:member, location: nil)).to have(1).errors_on(:location)
   end
 
-  it "avatar with size > 20K is invalid" do
+  it "avatar with size > 50K is invalid" do
     avatar = File.new("#{Rails.root}/spec/support/large.jpg")
     member = build(:member, avatar: avatar)
     expect(member).to have(1).errors_on(:avatar_file_size)

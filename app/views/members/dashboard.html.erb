@@ -2,7 +2,9 @@
   <%= image_tag @member.avatar.url %>
   <%= @member.fullname %>
   <%= @member.description %>
-  <%= link_to 'Edit', edit_member_registration_path %>
+  <% if member_signed_in? %>
+    <%= link_to 'Edit', edit_member_registration_path %>
+  <% end %>
 </div>
 <div>
   <%= @member.boardcount %>
@@ -10,5 +12,7 @@
   <%= @member.pincount %>
   Pins
 </div>
-<%= link_to 'Create a Board', new_board_path %>
+<% if member_signed_in? %>
+  <%= link_to 'Create a Board', new_board_path %>
+<% end %>
 <%= render 'boards/index' %>

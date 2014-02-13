@@ -13,7 +13,7 @@ class ImageEncodingValidator < ActiveModel::EachValidator
       begin
         tempimage =  MiniMagick::Image.open(picture.queued_for_write[:original].path)
         format = tempimage["format"]
-        unless (format == 'PNG' || format == 'GIF' || format == 'JPG')
+        unless (format == 'PNG' || format == 'GIF' || format == 'JPG' || format == 'JPEG')
           record.errors[attribute] << "is of invalid type"
         end
       rescue MiniMagick::Error

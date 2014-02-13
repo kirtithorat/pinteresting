@@ -8,7 +8,7 @@ describe Pin do
 
   it "is uploaded at specified location" do
     pin = create(:pin)
-    expect(pin.image.path).to eq "#{Rails.root}/spec/support/uploads/pins/images/#{pin.id}/original/#{pin.image_file_name}"
+    expect(pin.image.path).to eq "#{Rails.root}/public/uploads/pins/images/#{pin.id}/original/#{pin.image_file_name}"
   end
 
   it "is invalid without a description" do
@@ -23,7 +23,7 @@ describe Pin do
     expect(build(:pin, board_id: nil)).to have(1).errors_on(:board_id)
   end
 
-  it "is invalid if size > 20K" do
+  it "is invalid if size > 50K" do
     image = File.new("#{Rails.root}/spec/support/large.jpg")
     expect(build(:pin, image: image)).to have(1).errors_on(:image_file_size)
   end

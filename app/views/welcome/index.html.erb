@@ -1,3 +1,7 @@
-<p> Save all the stuff you love (recipes! articles! travel ideas!) right here on Pinteresting. </p>
-<%= link_to "Join Us", new_member_registration_path %>
-<%= link_to "Log In", new_member_session_path %> 
+<div class="jumbotron">
+  <p>
+    Join Pinterest to find (and save!) all the things that inspire you.
+  </p>
+  <%= link_to "Join Us", new_member_registration_path, :class => "btn btn-primary btn-lg" %>
+  <%= link_to "Log In", new_member_session_path, :class => "btn btn-lg" %>
+</div>

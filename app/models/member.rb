@@ -9,14 +9,14 @@ class Member < ActiveRecord::Base
 
   has_attached_file :avatar,
     :styles => { :thumb => "100x100>" },
-    :path => '/Users/kirti/Dropbox/Projects/RubyonRails/pinteresting/spec/support/uploads/:class/:attachment/:id/:basename.:extension',
-    :url => '/spec/support/uploads/:class/:attachment/:id/:basename.:extension'
+    :path => '/Users/kirti/Dropbox/Projects/RubyonRails/pinteresting/public/uploads/:class/:attachment/:id/:basename.:extension',
+    :url => '/uploads/:class/:attachment/:id/:basename.:extension'
 
 
   validates :avatar, image_encoding: true
   validates_attachment :avatar,
-    :content_type => { :content_type => ["image/jpg", "image/gif", "image/png"] },
-    :size => {:in => 0..20.kilobytes}
+    :content_type => { :content_type => ["image/jpg", "image/jpeg", "image/gif", "image/png"] },
+    :size => {:in => 0..50.kilobytes}
 
   def fullname
     self.firstname + " " + self.lastname

@@ -25,7 +25,7 @@ describe "Launch Application" do
     end
 
     it "has an introduction" do
-      expect(page).to have_text("Save all the stuff you love (recipes! articles! travel ideas!) right here on Pinteresting.")
+      expect(page).to have_text("Join Pinterest to find (and save!) all the things that inspire you.")
     end
 
     it "has Join Us link" do

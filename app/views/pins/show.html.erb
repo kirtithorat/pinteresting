@@ -2,11 +2,13 @@
   <%= link_to @pin.board.name, board_path(@pin.board) %>
 </div>
 <div>
-  <%= image_tag @pin.image.url(:medium) %>
-  <%= link_to 'Edit Pin', edit_pin_path(@pin) %>
+  <%= image_tag(@pin.image.url(:medium)) %>
+  <% if member_signed_in? %>
+    <%= link_to 'Edit Pin', edit_pin_path(@pin) %>
+  <% end %>
 </div>
 <div>
-  <%= image_tag @pin.board.member.avatar.url %>
+  <%= link_to image_tag(@pin.board.member.avatar.url), dashboard_path(id: @pin.board.member.id)%>
   <%= @pin.board.member.fullname %>
   <%= @pin.description %>
 </div>

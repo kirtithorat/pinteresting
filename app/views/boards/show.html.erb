@@ -1,27 +1,31 @@
 <p>
-  <strong>Name:</strong>
   <%= @board.name %>
 </p>
-
 <p>
-  <strong>Description:</strong>
   <%= @board.description %>
 </p>
-
-<%= link_to 'Add a Pin', new_board_pin_path(@board.id) %>
-
-<%# render "pins/index" %>
-
+<div>
+  <%= link_to image_tag(@board.member.avatar.url(:thumb)), dashboard_path(id: @board.member.id)%>
+  <%= @board.member.fullname %>
+</div>
+<% if member_signed_in? %>
+  <%= link_to 'Edit Board', edit_board_path(@board) %>
+<% end %>
+<%= @board.pins.size %>
+Pins
+<div>
+  <% if member_signed_in? %>
+    <%= link_to 'Add a Pin', new_board_pin_path(@board.id) %>
+  <% end %>
+</div>
 <% unless @pins.nil? %>
   <% @pins.each do |pin| %>
     <div>
-      <%= link_to pin.description, pin %>
-      <%= link_to 'Edit', edit_pin_path(pin) %>
-      <%= link_to 'Destroy', pin, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <%= link_to image_tag(pin.image.url(:medium)), pin %>
+      <%= pin.description %>
+      <% if member_signed_in? %>
+        <%= link_to 'Edit', edit_pin_path(pin) %>
+      <% end %>
     </div>
   <% end %>
 <% end %>
-
-
-<%= link_to 'Edit Board', edit_board_path(@board) %> |
-<%= link_to 'Back', dashboard_path %>

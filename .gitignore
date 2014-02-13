@@ -16,4 +16,5 @@
 /tmp
 .DS_Store
 /public/system
+/public/uploads
 /spec/support/uploads

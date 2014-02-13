@@ -2,10 +2,8 @@
 <%= form_for @pin, :url => board_pins_path(@pin.board_id), :html => { :multipart => true }  do |f| %>
   <%= render 'errors' %>
   <div>
-    <% unless @boards.nil? %>
-      <%= f.label "Board" %>
-      <%= f.select :board_id, @boards.collect { |b| [b.name, b.id ]}  %>
-    <% end %>
+    <%= f.label "Board" %>
+    <%= f.select :board_id, @boards.collect { |b| [b.name, b.id ]}  %>
   </div>
   <div>
     <%= f.file_field :image, class: "form-control" %>
