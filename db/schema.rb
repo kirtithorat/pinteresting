@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20140125191228) do
   create_table "members", force: true do |t|
     t.string   "firstname",                           null: false
     t.string   "lastname",                            null: false
+    t.string   "membername",                          null: false
     t.text     "description"
     t.string   "gender"
     t.string   "location",                            null: false
@@ -50,6 +51,7 @@ ActiveRecord::Schema.define(version: 20140125191228) do
   end
 
   add_index "members", ["email"], name: "index_members_on_email", unique: true
+  add_index "members", ["membername"], name: "index_members_on_membername", unique: true
   add_index "members", ["reset_password_token"], name: "index_members_on_reset_password_token", unique: true
 
   create_table "pins", force: true do |t|

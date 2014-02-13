@@ -5,7 +5,8 @@ class Member < ActiveRecord::Base
     :recoverable, :rememberable, :trackable, :validatable
   has_many :boards, dependent: :destroy
 
-  validates :firstname, :lastname, :location ,  presence: true
+  validates :firstname, :lastname, :location, presence: true
+  validates :membername, presence: true, uniqueness: true
 
   has_attached_file :avatar,
     :styles => { :thumb => "100x100>" },

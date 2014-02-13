@@ -5,7 +5,7 @@
   <%= @board.description %>
 </p>
 <div>
-  <%= link_to image_tag(@board.member.avatar.url(:thumb)), dashboard_path(id: @board.member.id)%>
+  <%= link_to image_tag(@board.member.avatar.url(:thumb)), dashboard_path(id: @board.member.membername)%>
   <%= @board.member.fullname %>
 </div>
 <% if member_signed_in? %>

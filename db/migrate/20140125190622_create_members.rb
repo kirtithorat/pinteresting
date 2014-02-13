@@ -3,6 +3,7 @@ class CreateMembers < ActiveRecord::Migration
     create_table :members do |t|
       t.string :firstname, null: false
       t.string :lastname, null: false
+      t.string :membername, null: false
       t.text :description
       t.string :gender
       t.string :location, null: false
@@ -10,5 +11,7 @@ class CreateMembers < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :members, :membername, unique: true
   end
 end

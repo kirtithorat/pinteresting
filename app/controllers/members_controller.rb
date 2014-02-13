@@ -8,9 +8,8 @@ class MembersController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def load_dashboard
     if current_member.nil?
-      begin
-        @member = Member.find(params[:id])
-      rescue
+      @member = Member.find_by(membername: params[:id])
+      if @member.nil?
         render :errors and return
       end
     else
