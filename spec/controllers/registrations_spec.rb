@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Devise::RegistrationsController do
+describe RegistrationsController do
 
   context "Member created successfully" do
 

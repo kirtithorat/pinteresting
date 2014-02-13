@@ -11,7 +11,7 @@ describe PinsController do
       board = create(:board)
       member = board.member
       sign_in member
-      get :new
+      get :new, board_id: board.id
       expect(assigns(:pin)).to be_a_new(Pin)
       expect(response).to render_template :new
     end
@@ -25,14 +25,14 @@ describe PinsController do
         board = create(:board)
         member = board.member
         sign_in member
-        expect { post :create, :pin => attributes_for(:pin, board_id: board.id) }.to change(Pin, :count).by(1)
+        expect { post :create, :board_id => board.id, :pin => attributes_for(:pin, board_id: board.id) }.to change(Pin, :count).by(1)
       end
 
       it "and redirects to show board page" do
         board = create(:board)
         member = board.member
         sign_in member
-        post :create, :pin => attributes_for(:pin, board_id: board.id)
+        post :create, :board_id => board.id, :pin => attributes_for(:pin, board_id: board.id)
         expect(response).to redirect_to board_path(board)
       end
 
@@ -44,14 +44,14 @@ describe PinsController do
         board = create(:board)
         member = board.member
         sign_in member
-        expect { post :create, :pin => attributes_for(:pin, board_id: nil) }.not_to change(Pin, :count)
+        expect { post :create, :board_id => board.id, :pin => attributes_for(:pin, board_id: nil) }.not_to change(Pin, :count)
       end
 
       it "and re-renders new pin page" do
         board = create(:board)
         member = board.member
         sign_in member
-        post :create, :pin => attributes_for(:pin, board_id: nil)
+        post :create, :board_id => board.id, :pin => attributes_for(:pin, board_id: nil)
         expect(response).to render_template :new
       end
 

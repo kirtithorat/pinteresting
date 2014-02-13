@@ -1,11 +1,14 @@
 <div>
+  <%= image_tag @member.avatar.url %>
   <%= @member.fullname %>
   <%= @member.description %>
   <%= link_to 'Edit', edit_member_registration_path %>
 </div>
 <div>
-  <%= @member.boardcount %> Boards
-  <%= @member.pincount %> Pins
+  <%= @member.boardcount %>
+  Boards
+  <%= @member.pincount %>
+  Pins
 </div>
 <%= link_to 'Create a Board', new_board_path %>
 <%= render 'boards/index' %>

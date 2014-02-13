@@ -1,15 +1,15 @@
 Pinteresting::Application.routes.draw do
 
   root 'welcome#index'
-  devise_for :members
+  devise_for :members, :controllers => { :registrations => :registrations }
 
-  devise_scope :member do
-    get "dashboard", :to => "members#dashboard"
+  get "dashboard", :to => "members#dashboard"
+  
+
+  resources :boards do
+      resources :pins, :shallow => true
   end
 
-  resources :boards
-
-  resources :pins
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

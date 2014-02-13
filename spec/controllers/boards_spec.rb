@@ -85,7 +85,7 @@ describe BoardsController do
 
       it "and redirects to dashboard page" do
         patch :update, id: board, :board => attributes_for(:board, category: "Fashion")
-        expect(response).to redirect_to :dashboard
+        expect(response).to redirect_to board_path(board)
       end
 
     end

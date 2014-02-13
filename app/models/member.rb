@@ -8,7 +8,10 @@ class Member < ActiveRecord::Base
 
   validates :firstname, :lastname, :location ,  presence: true
 
-  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }
+  has_attached_file :avatar,
+    :path => '/Users/kirti/Dropbox/Projects/RubyonRails/pinteresting/spec/support/uploads/:class/:attachment/:id/:basename.:extension',
+    :url => '/spec/support/uploads/:class/:attachment/:id/:basename.:extension'
+
 
   validates :avatar, image_encoding: true
   validates_attachment :avatar,

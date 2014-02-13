@@ -1,11 +1,12 @@
 <div>
- <%= image_tag @pin.image.url(:medium) %>
+  <%= link_to @pin.board.name, board_path(@pin.board) %>
 </div>
-       
-<p>
-  <strong>Description:</strong>
+<div>
+  <%= image_tag @pin.image.url(:medium) %>
+  <%= link_to 'Edit Pin', edit_pin_path(@pin) %>
+</div>
+<div>
+  <%= image_tag @pin.board.member.avatar.url %>
+  <%= @pin.board.member.fullname %>
   <%= @pin.description %>
-</p>
-
-<%= link_to 'Edit', edit_pin_path(@pin) %> |
-<%= link_to 'Back', board_path(@pin.board) %>
+</div>

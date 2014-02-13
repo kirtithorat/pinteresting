@@ -1,3 +1,20 @@
 <h1>Create a Board</h1>
-
-<%= render 'form' %>
+<%= form_for(@board) do |f| %>
+  <%= render 'errors' %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %><br>
+  </div>
+  <div>
+    <%= f.label :description %>
+    <%= f.text_field :description %><br>
+  </div>
+  <div>
+    <%= f.label :category %>
+    <%= f.select :category, :options => ["Food", "Travel", "Fashion", "Others"] %>
+  </div>
+  <div>
+    <%= link_to "Cancel", dashboard_path %>
+    <%= f.submit %>
+  </div>
+<% end %>

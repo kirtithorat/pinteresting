@@ -8,8 +8,8 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:sign_up) << :firstname << :lastname << :description << :gender << :avatar << :location
-    devise_parameter_sanitizer.for(:account_update) << :firstname << :lastname << :description << :gender << :avatar << :location
+    devise_parameter_sanitizer.for(:sign_up) << :firstname << :lastname << :gender << :location
+    devise_parameter_sanitizer.for(:account_update) << :firstname << :lastname << :description << :gender << :location << :avatar_file_name << :avatar_content_type << :avatar_file_size << :avatar_updated_at << :avatar
   end
 
   def after_sign_in_path_for(resource)
@@ -19,5 +19,5 @@ class ApplicationController < ActionController::Base
   def after_sign_up_path_for(resource)
     dashboard_path
   end
-  
+
 end

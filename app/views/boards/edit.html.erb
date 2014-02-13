@@ -1,3 +1,21 @@
 <h1>Edit Board</h1>
-
-<%= render 'form' %>
+<%= form_for(@board) do |f| %>
+  <%= render 'errors' %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %><br>
+  </div>
+  <div>
+    <%= f.label :description %>
+    <%= f.text_field :description %><br>
+  </div>
+  <div>
+    <%= f.label :category %>
+    <%= f.select :category, :options => ["Food", "Travel", "Fashion", "Others"] %>
+  </div>
+  <div>
+    <%= link_to "Delete Board", @board, method: :delete, data: { confirm: 'Are you sure?' }   %>
+    <%= link_to "Cancel", board_path(@board) %>
+    <%= f.submit "Save Changes" %>
+  </div>
+<% end %>

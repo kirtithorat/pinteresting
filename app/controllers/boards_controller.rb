@@ -30,7 +30,7 @@ class BoardsController < ApplicationController
 
   def update
     if @board.update(board_params)
-      redirect_to dashboard_path, notice: 'Board was successfully updated.'
+      redirect_to board_path(@board), notice: 'Board was successfully updated.'
     else
       render action: 'edit'
     end

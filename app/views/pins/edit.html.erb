@@ -10,9 +10,8 @@
     <%= f.text_field :description %>
   </div>
   <div>
-    <%= f.submit %>
+    <%= link_to "Delete", @pin, method: :delete, data: { confirm: 'Are you sure?' }   %>
+    <%= link_to "Cancel", pin_path %>
+    <%= f.submit "Save Changes" %>
   </div>
 <% end %>
-<%= link_to 'Show', @pin %>
-|
-<%= link_to 'Back', dashboard_path %>

@@ -3,7 +3,7 @@ class PinsController < ApplicationController
   before_action :set_pin, only: [:show, :edit, :update, :destroy]
 
   def new
-    @pin = Pin.new
+    @pin = Pin.new(board_id: params[:board_id])
     @boards = Board.where(member_id: current_member.id)
   end
 
