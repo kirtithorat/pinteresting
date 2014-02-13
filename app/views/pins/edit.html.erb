@@ -4,6 +4,7 @@
   <div>
     <%= f.label "Board Name" %>
     <%= f.select :board_id, @boards.collect{ |b| [b.name, b.id] } %>
+    <%= image_tag(@pin.image.url(:medium)) %>
   </div>
   <div>
     <%= f.label :description %>
