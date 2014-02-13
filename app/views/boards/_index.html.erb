@@ -2,6 +2,7 @@
   <% @boards.each do |board| %>
     <div>
       <%= link_to board.name, board %>
+      <%= board.pins.size %> Pins
       <%= link_to 'Edit', edit_board_path(board) %>
       <%= link_to 'Destroy', board, method: :delete, data: { confirm: 'Are you sure?' } %>
     </div>
