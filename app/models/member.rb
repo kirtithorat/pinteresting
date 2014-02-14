@@ -6,7 +6,12 @@ class Member < ActiveRecord::Base
   has_many :boards, dependent: :destroy
 
   validates :firstname, :lastname, :location, presence: true
-  validates :membername, presence: true, uniqueness: true
+  validates :membername, presence: true, uniqueness: true,
+    length: { maximum: 25 },
+    format: { with: /\A([0-9]*[A-Za-z]+[0-9]*)+\z/ , message: "invalid : only allows atleast one letter and numbers" }
+  validates :firstname, :lastname, format: { with: /\A[a-zA-Z]+\z/, message: "only allows letters" }
+  validates :description, length: { maximum: 280 }
+  validates :firstname, :lastname, length: { maximum: 25 }
 
   has_attached_file :avatar,
     :styles => { :thumb => "100x100>" },

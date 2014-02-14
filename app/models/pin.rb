@@ -10,7 +10,8 @@ class Pin < ActiveRecord::Base
     :styles => { :medium => "300x300>", :thumb => "100x100>" },
     :path => '/Users/kirti/Dropbox/Projects/RubyonRails/pinteresting/public/uploads/:class/:attachment/:id/:style/:basename.:extension',
     :url => '/uploads/:class/:attachment/:id/:style/:basename.:extension'
-  validates :description, :board_id, presence: true
+  validates :description,  presence: true, length: { maximum: 280 }
+  validates :board_id, presence: true
   validates :image, attachment_presence: true
 
   validates :image, image_encoding: true

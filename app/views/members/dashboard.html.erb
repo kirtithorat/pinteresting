@@ -1,3 +1,8 @@
+<% if member_signed_in? %>
+  <p>
+    Welcome! Share your pins with everyone, use: <%= link_to "#{root_url}#{@member.membername}", dashboard_path(@member.membername) %>
+  </p>
+<% end %>
 <div>
   <%= image_tag @member.avatar.url %>
   <%= @member.fullname %>

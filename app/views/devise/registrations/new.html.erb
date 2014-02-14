@@ -1,42 +1,55 @@
 <h2>Join Us</h2>
-
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+  <!-- if email is not provided, then membername would not be set.
+       Suppress the error "Membername can't be blank." as below.
+       The following code works except for the Count of errors.
+   -->
+  <%# reg_errors = devise_error_messages! %>
+  <%# unless reg_errors.empty? %>
+  <%# reg_errors.gsub!(/\<li>Membername can&#39;t be blank\<\/li>/,"").html_safe %>
+  <%# end %>
 
-   <div> 
-      <%= f.text_field :firstname, :placeholder => "First Name" ,:autofocus => true %>
-      <%= f.text_field :lastname, :placeholder => "Last Name" %> 
-   </div>
-
-   <div> 
-      www.pinteresting.com/<%= f.text_field :membername, :placeholder => "Member Name" %>
-   </div>
-
-    <div>
-      <%= f.email_field :email, :placeholder => "Email Address" %>
+  <% if resource.errors.any? %>
+    <% unless resource.errors[:membername].empty? %>
+      <% resource.errors.delete(:membername) %>
+    <% end %>
+    <div id="error_explanation">
+      <h2><%= pluralize(resource.errors.count, "error") %>
+        prohibited this member from being saved:</h2>
+      <ul>
+        <% resource.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
     </div>
-
-    <div>
-      <%= f.password_field :password, :placeholder => "Password" %>
-    </div>
-    <div>
-      <%= f.password_field :password_confirmation , :placeholder => "Confirm Password"%>
-    </div>
-    <div>
-      <%= f.select :location, :options => ["United States", "India", "UK"] %>
-    </div>
-    <div>
-      <%= f.radio_button :gender, :female  %>
-      <%= f.label :female %>
-      <%= f.radio_button :gender, :male %>
-      <%= f.label :male %> 
-    </div>
-    <div>
-      <%= link_to "Cancel", root_path %>
-      <%= f.submit "Join" %>
-     <!-- 
+  <% end %>
+  <div>
+    <%= f.text_field :firstname, :placeholder => "First Name" ,:autofocus => true %>
+    <%= f.text_field :lastname, :placeholder => "Last Name" %>
+  </div>
+  <div>
+    <%= f.email_field :email, :placeholder => "Email Address" %>
+  </div>
+  <div>
+    <%= f.password_field :password, :placeholder => "Password" %>
+  </div>
+  <div>
+    <%= f.password_field :password_confirmation , :placeholder => "Confirm Password"%>
+  </div>
+  <div>
+    <%= f.select :location, :options => ["United States", "India", "UK"] %>
+  </div>
+  <div>
+    <%= f.radio_button :gender, :female  %>
+    <%= f.label :female %>
+    <%= f.radio_button :gender, :male %>
+    <%= f.label :male %>
+  </div>
+  <div>
+    <%= link_to "Cancel", root_path %>
+    <%= f.submit "Join" %>
+    <!-- 
      <input type = "image" src = "submit.jpg" value = "Join" name = "commit"> 
      -->
-
-    </div>
+  </div>
 <% end %>
