@@ -15,11 +15,11 @@ describe Member do
   end
 
   it "is invalid without a firstname" do
-    expect(build(:member, firstname: nil)).to have(1).errors_on(:firstname)
+    expect(build(:member, firstname: nil)).to have(2).errors_on(:firstname)
   end
 
   it "is invalid without a lastname" do
-    expect(build(:member, lastname: nil)).to have(1).errors_on(:lastname)
+    expect(build(:member, lastname: nil)).to have(2).errors_on(:lastname)
   end
 
   it "is invalid without an email" do

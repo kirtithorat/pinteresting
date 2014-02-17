@@ -11,7 +11,7 @@
   </div>
   <div>
     <%= f.label :category %>
-    <%= f.select :category, :options => ["Food", "Travel", "Fashion", "Others"] %>
+    <%= f.select :category, :options => ["Others", "Food", "Travel", "Fashion"] %>
   </div>
   <div>
     <%= link_to "Delete Board", @board, method: :delete, data: { confirm: 'Are you sure?' }   %>

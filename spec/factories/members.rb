@@ -6,6 +6,7 @@ FactoryGirl.define do
     firstname "John"
     lastname  "Doe"
     location "United States"
+    membername "johndoe"
   end
 
   factory :board do
