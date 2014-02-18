@@ -21,7 +21,7 @@ describe "Launch Application" do
   describe "and make sure that it:" do
 
     it "has a text logo" do
-      expect(page).to have_selector("a", text: "Pinteresting")
+      expect(page).to have_selector("img[alt='Pinteresting']")
     end
 
     it "has an introduction" do
@@ -478,7 +478,7 @@ describe "Launch Application" do
                                     end
 
                                     it "should have an Image" do
-                                      expect(page).to have_selector("img", count: 2 )
+                                      expect(page).to have_selector("img", count: 3 ) #pin image , member avatar and pinteresting icon
                                     end
 
                                     it { page.should have_link("Edit Pin") }

@@ -1,23 +1,26 @@
 <% if member_signed_in? %>
-  <p>
-    Welcome! Share your pins with everyone, use: <%= link_to "#{root_url}#{@member.membername}", dashboard_path(@member.membername) %>
-  </p>
-<% end %>
-<div>
-  <%= image_tag @member.avatar.url %>
-  <%= @member.fullname %>
-  <%= @member.description %>
+  <div class="pt_container">
+    <p>
+      Welcome! Share your pins with everyone, use:
+      <%= link_to "#{root_url}#{@member.membername}", dashboard_path(@member.membername) %>
+    </p>
+  <% end %>
+  <div>
+    <%= image_tag @member.avatar.url %>
+    <%= @member.fullname %>
+    <%= @member.description %>
+    <% if member_signed_in? %>
+      <%= link_to 'Edit', edit_member_registration_path %>
+    <% end %>
+  </div>
+  <div>
+    <%= @member.boardcount %>
+    Boards
+    <%= @member.pincount %>
+    Pins
+  </div>
   <% if member_signed_in? %>
-    <%= link_to 'Edit', edit_member_registration_path %>
+    <%= link_to 'Create a Board', new_board_path %>
   <% end %>
 </div>
-<div>
-  <%= @member.boardcount %>
-  Boards
-  <%= @member.pincount %>
-  Pins
-</div>
-<% if member_signed_in? %>
-  <%= link_to 'Create a Board', new_board_path %>
-<% end %>
 <%= render 'boards/index' %>

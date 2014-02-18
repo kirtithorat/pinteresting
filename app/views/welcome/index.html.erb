@@ -1,7 +1,13 @@
-<div class="jumbotron">
+<div class="jumbotron pt_welcome_bg">
+  <%= image_tag "/assets/images/pinterest_white.png", alt: "Pinteresting" %>
+  <p>
+    He used Pinterest to start his rooftop oasis
+  </p>
   <p>
     Join Pinterest to find (and save!) all the things that inspire you.
   </p>
-  <%= link_to "Join Us", new_member_registration_path, :class => "btn btn-primary btn-lg" %>
-  <%= link_to "Log In", new_member_session_path, :class => "btn btn-lg" %>
+  <div>
+    <%= link_to "Join Us", new_member_registration_path, :class => "btn btn-primary btn-lg" %>
+    <%= link_to "Log In", new_member_session_path, :class => "btn btn-default btn-lg" %>
+  </div>
 </div>
