@@ -1,14 +1,20 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <% if member_signed_in? %>
-      <%= link_to image_tag("/assets/images/pinterest_nav.png", alt: "Pinteresting"), dashboard_path %>
-      <%= link_to edit_member_registration_path do %>
-        <span class="glyphicon glyphicon-cog"></span>
-        Settings
-      <% end %>
-      <%= link_to "Log Out", destroy_member_session_path, method: :delete %>
+        <%= link_to image_tag("/assets/images/pinterest_nav.png", alt: "Pinteresting"), dashboard_path, id: "pt_logo" %>
+        <ul class="nav nav-pills pull-right">
+          <li>
+            <%= link_to edit_member_registration_path do %>
+              <span class="glyphicon glyphicon-cog"></span>
+              Settings
+            <% end %>
+          </li>
+          <li>
+            <%= link_to "Log Out", destroy_member_session_path, method: :delete %>
+          </li>
+        </ul>
     <% else %>
-      <%= link_to image_tag("/assets/images/pinterest_nav.png", alt: "Pinteresting"), root_path %>
+      <%= link_to image_tag("/assets/images/pinterest_nav.png", alt: "Pinteresting"), root_path, id: "pt_logo" %>
     <% end %>
   </div>
 </nav>

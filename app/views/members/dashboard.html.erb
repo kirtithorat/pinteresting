@@ -1,26 +1,52 @@
-<% if member_signed_in? %>
-  <div class="pt_container">
-    <p>
-      Welcome! Share your pins with everyone, use:
-      <%= link_to "#{root_url}#{@member.membername}", dashboard_path(@member.membername) %>
-    </p>
-  <% end %>
-  <div>
-    <%= image_tag @member.avatar.url %>
-    <%= @member.fullname %>
-    <%= @member.description %>
-    <% if member_signed_in? %>
-      <%= link_to 'Edit', edit_member_registration_path %>
-    <% end %>
-  </div>
-  <div>
-    <%= @member.boardcount %>
-    Boards
-    <%= @member.pincount %>
-    Pins
-  </div>
+<div class="pt_dashboard pt_border center-block">
   <% if member_signed_in? %>
-    <%= link_to 'Create a Board', new_board_path %>
+    <div class="row">
+      <div class="col-md-10 col-md-offset-1">
+        <p class="lead help-block">Welcome! Share your pins with everyone, use:
+          <%= link_to "#{root_url}#{@member.membername}", dashboard_path(@member.membername) %>
+        </p>
+      </div>
+    </div>
   <% end %>
+  <div class="row">
+    <div class="col-md-2 col-md-offset-1">
+      <%= image_tag @member.avatar.url(:medium), class: "img-thumbnail" %>
+    </div>
+    <div class="col-md-9">
+      <div class="row">
+        <p class="lead text-left">
+          <strong>
+            <%= @member.fullname %>
+          </p>
+        </strong>
+      </div>
+      <div class="row">
+        <p class="lead">
+          <%= @member.description %>
+        </p>
+      </div>
+      <div class="row">
+        <% if member_signed_in? %>
+          <div class="col-md-2 col-md-offset-9">
+            <%= link_to edit_member_registration_path do %>
+              <span class="glyphicon glyphicon-pencil"></span> Edit
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="pt_dashboard_tabs center-block">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="btn-group">
+        <button type="button" class="btn btn-default"><%= @member.boardcount %>
+          Boards</button>
+        <button type="button" class="btn btn-default"><%= @member.pincount %>
+          Pins</button>
+      </div>
+    </div>
+  </div>
 </div>
 <%= render 'boards/index' %>
