@@ -1,20 +1,24 @@
-<h1>Create a Board</h1>
-<%= form_for(@board) do |f| %>
-  <%= render 'errors' %>
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %><br>
-  </div>
-  <div>
-    <%= f.label :description %>
-    <%= f.text_area :description %><br>
-  </div>
-  <div>
-    <%= f.label :category %>
-    <%= f.select :category, :options => ["Others", "Food", "Travel", "Fashion"] %>
-  </div>
-  <div>
-    <%= link_to "Cancel", dashboard_path %>
-    <%= f.submit %>
-  </div>
-<% end %>
+<div class="pt_container pt_bg_color center-block">
+  <h2 class="pt_center pt_heading">Create a Board</h2>
+  <%= form_for(@board, :class => "form-horizontal") do |f| %>
+    <%= render 'errors' %>
+    <div class="form-group">
+      <%= f.label :name, :class => "col-sm-4 control-label" %>
+      <%= f.text_field :name %><br>
+    </div>
+    <div class="form-group">
+      <%= f.label :description, :class => "col-sm-4 control-label" %>
+      <%= f.text_area :description, :rows => 3, cols: 30 %><br>
+    </div>
+    <div class="form-group">
+      <%= f.label :category, :class => "col-sm-4 control-label" %>
+      <%= f.select :category, :options => ["Others", "Food", "Travel", "Fashion"] %>
+    </div>
+    <div class="form-group">
+      <div>
+        <%= link_to "Cancel", dashboard_path, :class => "btn btn-default col-sm-offset-2" %>
+        <%= f.submit :class => "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>

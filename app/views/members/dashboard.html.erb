@@ -1,41 +1,41 @@
-<div class="pt_dashboard pt_border center-block">
+<div class="pt_dashboard pt_bg_color pt_border center-block">
   <% if member_signed_in? %>
     <div class="row">
-      <div class="col-md-10 col-md-offset-1">
-        <p class="lead help-block">Welcome! Share your pins with everyone, use:
+      <div class="col-md-10">
+        <p class="help-block"><strong>Welcome!</strong>
+          Share your pins with everyone, use:
           <%= link_to "#{root_url}#{@member.membername}", dashboard_path(@member.membername) %>
         </p>
       </div>
     </div>
   <% end %>
   <div class="row">
-    <div class="col-md-2 col-md-offset-1">
-      <%= image_tag @member.avatar.url(:medium), class: "img-thumbnail" %>
+    <div class="col-md-2">
+      <%= image_tag @member.avatar.url(:thumb), class: "img-thumbnail" %>
     </div>
     <div class="col-md-9">
       <div class="row">
-        <p class="lead text-left">
+        <p class="lead">
           <strong>
             <%= @member.fullname %>
-          </p>
-        </strong>
-      </div>
-      <div class="row">
-        <p class="lead">
+          </strong>
+        </p>
+        <p>
           <%= @member.description %>
         </p>
       </div>
-      <div class="row">
-        <% if member_signed_in? %>
-          <div class="col-md-2 col-md-offset-9">
-            <%= link_to edit_member_registration_path do %>
-              <span class="glyphicon glyphicon-pencil"></span> Edit
-            <% end %>
-          </div>
+    </div>
+  </div>
+  <% if member_signed_in? %>
+    <div class="row">
+      <div class="col-md-1 col-md-offset-11">
+        <%= link_to edit_member_registration_path do %>
+          <span class="glyphicon glyphicon-pencil"></span>
+          Edit
         <% end %>
       </div>
     </div>
-  </div>
+  <% end %>
 </div>
 <div class="pt_dashboard_tabs center-block">
   <div class="row">

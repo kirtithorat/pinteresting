@@ -15,8 +15,8 @@ class Member < ActiveRecord::Base
 
   has_attached_file :avatar,
     :styles => { :thumb => "100x100>" },
-    :path => '/Users/kirti/Dropbox/Projects/RubyonRails/pinteresting/public/uploads/:class/:attachment/:id/:basename.:extension',
-    :url => '/uploads/:class/:attachment/:id/:basename.:extension'
+    :path => '/Users/kirti/Dropbox/Projects/RubyonRails/pinteresting/public/uploads/:class/:attachment/:id/:style/:basename.:extension',
+    :url => '/uploads/:class/:attachment/:id/:style/:basename.:extension'
 
 
   validates :avatar, image_encoding: true

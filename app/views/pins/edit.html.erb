@@ -1,18 +1,24 @@
-<h1>Edit Pin</h1>
-<%= form_for @pin, :html => { :multipart => true }  do |f| %>
-  <%= render 'errors' %>
-  <div>
-    <%= f.label "Board Name" %>
-    <%= f.select :board_id, @boards.collect{ |b| [b.name, b.id] } %>
-    <%= image_tag(@pin.image.url(:medium)) %>
-  </div>
-  <div>
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </div>
-  <div>
-    <%= link_to "Delete", @pin, method: :delete, data: { confirm: 'Are you sure?' }   %>
-    <%= link_to "Cancel", pin_path %>
-    <%= f.submit "Save Changes" %>
-  </div>
-<% end %>
+<div class="pt_edit_board_pin pt_bg_color center-block">
+  <h2 class="pt_center pt_heading">Edit Pin</h2>
+  <%= form_for @pin, :html => { :multipart => true }, :class => "form-horizontal"  do |f| %>
+    <%= render 'errors' %>
+    <div class="form-group">
+      <%= f.label "Board Name", :class => "col-sm-4 control-label" %>
+      <%= f.select :board_id, @boards.collect{ |b| [b.name, b.id] } %>
+    </div>
+    <div class="form-group">
+      <center>
+        <%= image_tag(@pin.image.url(:medium), :class => "img-thumbnail") %>
+      </center>
+    </div>
+    <div class="form-group">
+      <%= f.label :description , :class => "col-sm-4 control-label"%>
+      <%= f.text_area :description, :rows => 3, cols: 30  %>
+    </div>
+    <div class="form-group">
+      <%= link_to "Delete", @pin, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-default col-sm-offset-1" %>
+      <%= link_to "Cancel", pin_path, :class => "btn btn-default" %>
+      <%= f.submit "Save Changes", :class => "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

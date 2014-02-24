@@ -57,7 +57,7 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.clean_with(:truncation)
   end
-
+# config.output_stream = File.open('saved_output', 'w')
   #config.before(:each) do
   #  DatabaseCleaner.start
   #end

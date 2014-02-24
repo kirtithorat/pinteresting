@@ -1,4 +1,4 @@
-<div class = "pt_container pt_center center-block">
+<div class = "pt_container pt_bg_color pt_center center-block">
   <h2>Join Us</h2>
   <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
     <!-- if email is not provided, then membername would not be set.
@@ -23,6 +23,7 @@
         </ul>
       </div>
     <% end %>
+
     <div class="form-group">
       <%= f.text_field :firstname, :placeholder => "First Name" ,:autofocus => true %>
       <%= f.text_field :lastname, :placeholder => "Last Name" %>

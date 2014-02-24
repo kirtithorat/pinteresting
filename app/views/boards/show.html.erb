@@ -1,31 +1,69 @@
-<p>
-  <%= @board.name %>
-</p>
-<p>
-  <%= @board.description %>
-</p>
-<div>
-  <%= link_to image_tag(@board.member.avatar.url(:thumb)), dashboard_path(id: @board.member.membername)%>
-  <%= @board.member.fullname %>
+<div class="center-block">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <h2 class="pt_center">
+        <%= @board.name %>
+      </h2>
+      <h3 class="pt_center">
+        <%= @board.description %>
+      </h3>
+    </div>
+  </div>
 </div>
-<% if member_signed_in? %>
-  <%= link_to 'Edit Board', edit_board_path(@board) %>
-<% end %>
-<%= @board.pins.size %>
-Pins
-<div>
+<div class="pt_bg_color pt_border center-block">
+  <div class="row">
+    <div class="col-md-1">
+      <%= link_to image_tag(@board.member.avatar.url(:thumb), class: "img-thumbnail"), dashboard_path(id: @board.member.membername)%>
+    </div>
+    <div class="col-md-11">
+      <div class="row">
+        <br/>
+        <p class="col-md-5">
+          <strong>
+            <%= link_to @board.member.fullname, dashboard_path(id: @board.member.membername) %>
+          </strong>
+        </p>
+        <% if member_signed_in? %>
+          <div class="col-md-2">
+            <%= link_to "Edit Board", edit_board_path(@board),class: "btn btn-primary" %>
+          </div>
+          <p class="col-md-2 col-md-offset-3">
+            <%= @board.pins.size %>
+            Pins
+          </p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<br/>
+<div class="row">
   <% if member_signed_in? %>
-    <%= link_to 'Add a Pin', new_board_pin_path(@board.id) %>
-  <% end %>
-</div>
-<% unless @pins.nil? %>
-  <% @pins.each do |pin| %>
-    <div>
-      <%= link_to image_tag(pin.image.url(:medium)), pin %>
-      <%= link_to pin.description, pin %>
-      <% if member_signed_in? %>
-        <%= link_to 'Edit', edit_pin_path(pin) %>
-      <% end %>
+    <div class="col-sm-6 col-md-4">
+      <div class="thumbnail">
+        <%= link_to image_tag("/assets/images/add_pin.png"), new_board_pin_path(@board.id) %>
+      </div>
     </div>
   <% end %>
-<% end %>
+  <% unless @pins.nil? %>
+    <% @pins.each do |pin| %>
+      <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+          <%= link_to image_tag(pin.image.url(:medium)), pin %>
+          <div class="caption">
+            <h3>
+              <%= link_to pin.description, pin %>
+            </h3>
+          </div>
+          <% if member_signed_in? %>
+            <div>
+              <%= link_to edit_pin_path(pin) do %>
+                <span class="glyphicon glyphicon-edit"></span>
+                Edit
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>

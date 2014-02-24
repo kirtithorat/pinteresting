@@ -4,6 +4,12 @@ $navbar-height: 45px;
 $jumbotron-color: #ffffff;
 $btn-primary-bg: #e3262e;
 $btn-default-color: #e3262e;
+$alert-info-bg: #f0ad4e; 
+$alert-info-text: darken(#f0ad4e, 30%);
+$alert-info-border: darken(#f0ad4e, 10%);
+$alert-padding: 5px;
+$thumbnail-bg: #ffffff;
+$thumbnail-border-radius: 6px;
 
 @import "bootstrap";
 
@@ -29,22 +35,36 @@ body{
 
 .pt_container {
 	width: 25em;
-	background: #ffffff;
 	padding: 5px 10px;
+	margin: auto;
 }
 
 .pt_dashboard {
-	width: 750px;
-	background-color: #ffffff;
-	padding: 20px 0px;
+	padding: 20px;
 }
 
 .pt_dashboard_tabs {
-	width: 750px;
 	margin: 20px 0px;
 }
 
+.pt_edit_member {
+	padding: 5px 0px 20px 10px;
+}
+
+.pt_edit_board_pin {
+	width: 400px;
+	padding: 5px 0px 20px 10px;
+}
+
 .pt_border{
-	border-radius: 4px;
+	border-radius: 6px;
 	box-shadow: 5px 5px 10px #cccccc;
+}
+
+.pt_bg_color {
+	background-color: #ffffff;
+}
+
+.pt_heading {
+	margin-bottom: 15px;
 }

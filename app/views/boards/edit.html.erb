@@ -1,21 +1,23 @@
-<h1>Edit Board</h1>
-<%= form_for(@board) do |f| %>
-  <%= render 'errors' %>
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %><br>
-  </div>
-  <div>
-    <%= f.label :description %>
-    <%= f.text_area :description %><br>
-  </div>
-  <div>
-    <%= f.label :category %>
-    <%= f.select :category, :options => ["Others", "Food", "Travel", "Fashion"] %>
-  </div>
-  <div>
-    <%= link_to "Delete Board", @board, method: :delete, data: { confirm: 'Are you sure?' }   %>
-    <%= link_to "Cancel", board_path(@board) %>
-    <%= f.submit "Save Changes" %>
-  </div>
-<% end %>
+<div class="pt_edit_board_pin pt_bg_color center-block">
+  <h2 class="pt_center pt_heading">Edit Board</h2>
+  <%= form_for(@board, :class => "form-horizontal") do |f| %>
+    <%= render 'errors' %>
+    <div class="form-group">
+      <%= f.label :name, :class => "col-sm-4 control-label" %>
+      <%= f.text_field :name %><br>
+    </div>
+    <div class="form-group">
+      <%= f.label :description, :class => "col-sm-4 control-label" %>
+      <%= f.text_area :description, :rows => 3, cols: 30 %><br>
+    </div>
+    <div class="form-group">
+      <%= f.label :category, :class => "col-sm-4 control-label" %>
+      <%= f.select :category, :options => ["Others", "Food", "Travel", "Fashion"] %>
+    </div>
+    <div class="form-group">
+      <%= link_to "Delete Board", @board, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-default col-sm-offset-1"   %>
+      <%= link_to "Cancel", board_path(@board), :class => "btn btn-default" %>
+      <%= f.submit "Save Changes", :class => "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>

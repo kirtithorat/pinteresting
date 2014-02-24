@@ -1,14 +1,33 @@
-<div>
-  <%= link_to @pin.board.name, board_path(@pin.board) %>
-</div>
-<div>
-  <%= image_tag(@pin.image.url(:medium)) %>
-  <% if member_signed_in? %>
-    <%= link_to 'Edit Pin', edit_pin_path(@pin) %>
-  <% end %>
-</div>
-<div>
-  <%= link_to image_tag(@pin.board.member.avatar.url), dashboard_path(id: @pin.board.member.membername)%>
-  <%= @pin.board.member.fullname %>
-  <%= @pin.description %>
+<div class="pt_container pt_bg_color center-block">
+  <div>
+   <p> <%= link_to @pin.board.name, board_path(@pin.board) %></p>
+  </div>
+  <div>
+    <center>
+      <%= image_tag(@pin.image.url(:medium), :class => "img-thumbnail") %>
+    </center>
+  </div>
+  <br/>
+  <div>
+    <% if member_signed_in? %>
+      <%= link_to edit_pin_path(@pin) do %>
+        <span class="glyphicon glyphicon-edit"></span>
+        Edit Pin
+      <% end %>
+    <% end %>
+  </div>
+  <br/>
+  <div class="row">
+    <div class="col-md-3">
+      <%= link_to image_tag(@pin.board.member.avatar.url), dashboard_path(id: @pin.board.member.membername)%>
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <h3><%= link_to @pin.board.member.fullname, dashboard_path(id: @pin.board.member.membername) %></h3>
+      </div>
+      <div class="row">
+        <p><%= @pin.description %></p>
+      </div>
+    </div>
+  </div>
 </div>
