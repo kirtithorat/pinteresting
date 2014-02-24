@@ -15,7 +15,7 @@ class MembersController < ApplicationController
     else
       @member = current_member
     end
-    @boards = @member.boards
+    @boards = @member.boards.order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
   end
 
 end

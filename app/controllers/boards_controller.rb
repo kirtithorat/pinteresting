@@ -3,7 +3,6 @@ class BoardsController < ApplicationController
   before_action :set_board, only: [:show, :edit, :update, :destroy]
 
   def index
-    @boards = Board.where(member_id: current_member.id)
   end
 
   def new
@@ -11,7 +10,7 @@ class BoardsController < ApplicationController
   end
 
   def show
-    @pins = @board.pins
+    @pins = @board.pins.order(created_at: :desc).paginate(:page => params[:page], :per_page => 10)
   end
 
   def edit

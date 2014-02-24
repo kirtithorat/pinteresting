@@ -11,6 +11,8 @@ gem 'devise', '~> 3.2.2'
 gem 'paperclip', '~> 3.5.3'
 gem 'mini_magick'
 gem 'bootstrap-sass'
+gem 'will_paginate', '~> 3.0'
+gem 'will_paginate-bootstrap'
 
 group :development, :test do
   gem 'sqlite3'
