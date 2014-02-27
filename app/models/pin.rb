@@ -7,7 +7,7 @@ class Pin < ActiveRecord::Base
   # :path => :rails_root/public/system/:class/:attachment/:id_partition/:style/:filename
   # :url => /system/:class/:attachment/:id_partition/:style/:filename
   has_attached_file :image,
-    :styles => { :medium => "300x300>", :thumb => "100x100>" },
+    :styles => { :medium => "300x300>", :thumb => "100x100", :icon => "50x50" },
     :path => '/Users/kirti/Dropbox/Projects/RubyonRails/pinteresting/public/uploads/:class/:attachment/:id/:style/:basename.:extension',
     :url => '/uploads/:class/:attachment/:id/:style/:basename.:extension'
   validates :description,  presence: true, length: { maximum: 280 }

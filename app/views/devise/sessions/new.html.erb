@@ -1,6 +1,6 @@
 <div class = "pt_container pt_bg_color pt_center center-block">
   <h2>Log In</h2>
-  <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+  <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>    
     <div class="form-group">
       <span class="glyphicon glyphicon-user"></span>
       <%= f.email_field :email, :autofocus => true, :placeholder => "Email" %>

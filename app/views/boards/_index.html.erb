@@ -1,7 +1,7 @@
 <div class="row">
   <% if member_signed_in? %>
-    <div class="col-sm-6 col-md-4">
-      <div class="thumbnail">
+    <div class="col-sm-5 col-md-3">
+      <div>
         <%= link_to image_tag("/assets/images/create_board.png"), new_board_path %>
       </div>
     </div>
@@ -9,33 +9,64 @@
   <% unless @boards.nil? %>
     <% @boards.each do |board| %>
       <% pincount = board.pins.size %>
-      <div class="col-sm-6 col-md-4">
-        <div class="thumbnail">
+      <div class="col-sm-5 col-md-3">
+        <div class="thumbnail pt_thumbnail_box">
           <div class="caption">
-            <h3><%= link_to board.name, board %></h3>
-            <p><%= pincount %>
-              Pins</p>
-            <p>
-              <% if pincount > 0 %>
-                <%= link_to board do %>
-                  <%= image_tag board.pins.first.image.url(:medium) %>
-                <% end %>
-              <% else %>
-                <%= image_tag "/avatars/original/missing.png" %>
-              <% end %>
-              <% if member_signed_in? %>
-                <div>
-                  <%= link_to edit_board_path(board) do %>
-                    <span class="glyphicon glyphicon-edit"></span>
-                    Edit
-                  </div>
-                <% end %>
-              <% end %>
-            </p>
+            <%= link_to board.name, board %>
           </div>
+          <div class="pt_caption pt_center"><%= pincount %>
+            Pins</div>
+          <% if pincount > 0 %>
+            <%= link_to board do %>
+              <div class="pt_thumbnail_img center-block">
+                <%= image_tag board.pins.first.image.url(:medium)%>
+                <div class="pt_change_cover">
+                 <button>Change Cover </button>
+                </div>
+              </div>
+            <% end %>
+            <% pincount = 0 %>
+            <div>
+              <% board.pins.each do |pin| %>
+                <div class="pt_thumbnail_icon">
+                  <%= image_tag pin.image.url(:icon) %>
+                </div>
+                <% pincount += 1 %>
+                <% if pincount==4 %>
+                  <% break %>
+                <% end %>
+              <% end %>
+            </div>
+          <% else %>
+            <!-- pincount > 0 -->
+            <%= link_to board do %>
+              <div class="pt_thumbnail_img center-block">
+              </div>
+            <% end %>
+          <% end %>
+          <!-- pincount > 0 -->
+          <% if pincount < 4 %>
+            <% while pincount < 4 do %>
+              <div class= "pt_thumbnail_icon">
+              </div>
+              <% pincount += 1  %>
+            <% end %>
+          <% end %>
+          <% if member_signed_in? %>
+            <div class="pt_clear">
+              <%= link_to edit_board_path(board) do %>
+                <span class="glyphicon glyphicon-edit"></span>
+                Edit
+              <% end %>
+            </div>
+          <% end %>
         </div>
+        <!-- pt_thumbnail_box -->
       </div>
+      <!-- col-sm-5 col-md-3 -->
     <% end %>
+    <!-- @boards.each -->
   <% end %>
+  <!-- end of unless -->
 </div>
 <%= will_paginate @boards, renderer: BootstrapPagination::Rails %>

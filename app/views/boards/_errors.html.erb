@@ -1,11 +1,7 @@
 <% if @board.errors.any? %>
-  <div id="error_explanation">
-    <h2><%= pluralize(@board.errors.count, "error") %>
-      prohibited this board from being saved:</h2>
-    <ul>
+  <div class="alert alert-danger">
       <% @board.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+        <p><%= msg %></p>
       <% end %>
-    </ul>
   </div>
 <% end %>

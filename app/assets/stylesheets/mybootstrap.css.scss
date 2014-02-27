@@ -10,6 +10,7 @@ $alert-info-border: darken(#f0ad4e, 10%);
 $alert-padding: 5px;
 $thumbnail-bg: #ffffff;
 $thumbnail-border-radius: 6px;
+$thumbnail-caption-padding: 2px;
 
 @import "bootstrap";
 
@@ -34,7 +35,7 @@ body{
 }
 
 .pt_container {
-	width: 25em;
+	width: 450px;
 	padding: 5px 10px;
 	margin: auto;
 }
@@ -48,12 +49,46 @@ body{
 }
 
 .pt_edit_member {
-	padding: 5px 0px 20px 10px;
+	padding: 5px 10px 20px 10px;
 }
 
 .pt_edit_board_pin {
 	width: 400px;
-	padding: 5px 0px 20px 10px;
+	padding: 5px 10px 20px 10px;
+}
+
+.pt_thumbnail_box {
+	width: 250px;
+	height: 284px;
+}
+
+.pt_thumbnail_img {
+	width: 228px;
+	height: 130px;
+	background-color: #cccccc;
+	overflow: hidden;
+	margin: 0px auto 15px auto;
+	border-radius: 3px;
+	border: 2px solid #00CC99
+}
+
+.pt_thumbnail_img > img {
+
+}
+
+.pt_thumbnail_icon {
+    width: 54px;
+	height: 54px;
+	background-color: #cccccc;
+	margin: 0px 0px 15px 4px;
+	border-radius: 3px;
+	border: 2px solid #00CC99;
+	float: left;
+}
+
+.pt_thumbnail_icon > img {
+	width: 50px;
+	height: 50px;
 }
 
 .pt_border{
@@ -67,4 +102,33 @@ body{
 
 .pt_heading {
 	margin-bottom: 15px;
+}
+
+.field_with_errors {
+    display: inline-block;
+    margin: 0px 0px 0px 0px;
+}
+
+.field_with_errors > input,  .field_with_errors > textarea{
+	border-color: #e3262e;
+}
+
+.pt_caption {
+	position: relative;
+	top: 125px;
+	left: 180px;
+	width: 50px;
+	margin: 0px 0px;
+	background-color: rgba(0,0,0,0.20);
+	border-radius: 3px;
+}
+
+.pt_change_cover {
+	position: relative;
+	top: -80px;
+	left: 50px;
+}
+
+.pt_clear {
+	clear:both;
 }

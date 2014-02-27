@@ -12,7 +12,7 @@
     </div>
     <div class="form-group">
       <%= f.label :category, :class => "col-sm-4 control-label" %>
-      <%= f.select :category, :options => ["Others", "Food", "Travel", "Fashion"] %>
+      <%= f.select :category, ["Others", "Food", "Travel", "Fashion"] %>
     </div>
     <div class="form-group">
       <%= link_to "Delete Board", @board, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-default col-sm-offset-1"   %>

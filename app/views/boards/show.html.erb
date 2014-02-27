@@ -39,21 +39,19 @@
 <br/>
 <div class="row">
   <% if member_signed_in? %>
-    <div class="col-sm-6 col-md-4">
-      <div class="thumbnail">
+    <div class="col-sm-5 col-md-3">
+      <div>
         <%= link_to image_tag("/assets/images/add_pin.png"), new_board_pin_path(@board.id) %>
       </div>
     </div>
   <% end %>
   <% unless @pins.nil? %>
     <% @pins.each do |pin| %>
-      <div class="col-sm-6 col-md-4">
+      <div class="col-sm-5 col-md-3">
         <div class="thumbnail">
           <%= link_to image_tag(pin.image.url(:medium)), pin %>
           <div class="caption">
-            <h3>
-              <%= link_to pin.description, pin %>
-            </h3>
+            <%= link_to pin.description, pin %>
           </div>
           <% if member_signed_in? %>
             <div>
@@ -67,4 +65,4 @@
       </div>
     <% end %>
   <% end %>
-<%= will_paginate @pins, renderer: BootstrapPagination::Rails %>
+  <%= will_paginate @pins, renderer: BootstrapPagination::Rails %>

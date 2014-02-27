@@ -4,7 +4,7 @@
   </div>
   <div>
     <center>
-      <%= image_tag(@pin.image.url(:medium), :class => "img-thumbnail") %>
+      <%= image_tag(@pin.image.url(:original), :class => "img-thumbnail") %>
     </center>
   </div>
   <br/>
@@ -19,11 +19,11 @@
   <br/>
   <div class="row">
     <div class="col-md-3">
-      <%= link_to image_tag(@pin.board.member.avatar.url), dashboard_path(id: @pin.board.member.membername)%>
+      <%= link_to image_tag(@pin.board.member.avatar.url(:thumb)), dashboard_path(id: @pin.board.member.membername)%>
     </div>
     <div class="col-md-6">
       <div class="row">
-        <h3><%= link_to @pin.board.member.fullname, dashboard_path(id: @pin.board.member.membername) %></h3>
+        <%= link_to @pin.board.member.fullname, dashboard_path(id: @pin.board.member.membername) %>
       </div>
       <div class="row">
         <p><%= @pin.description %></p>

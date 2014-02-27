@@ -13,17 +13,14 @@
       <% unless resource.errors[:membername].empty? %>
         <% resource.errors.delete(:membername) %>
       <% end %>
-      <div id="error_explanation">
-        <h2><%= pluralize(resource.errors.count, "error") %>
-          prohibited this member from being saved:</h2>
-        <ul>
-          <% resource.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-          <% end %>
-        </ul>
+      <div class="alert alert-danger">
+        <% resource.errors.full_messages.each do |msg| %>
+          <p>
+            <%= msg %>
+          </p>
+        <% end %>
       </div>
     <% end %>
-
     <div class="form-group">
       <%= f.text_field :firstname, :placeholder => "First Name" ,:autofocus => true %>
       <%= f.text_field :lastname, :placeholder => "Last Name" %>
