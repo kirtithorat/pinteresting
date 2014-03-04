@@ -4,6 +4,7 @@ class CreatePins < ActiveRecord::Migration
       t.text :description, null: false
       t.attachment :image
       t.references :board, index: true, null: false
+      t.references :member, index: true, null: false
 
       t.timestamps
     end

@@ -13,7 +13,7 @@
 <div class="pt_bg_color pt_border center-block">
   <div class="row">
     <div class="col-md-1">
-      <%= link_to image_tag(@board.member.avatar.url(:thumb), class: "img-thumbnail"), dashboard_path(id: @board.member.membername)%>
+      <%= link_to image_tag(@board.member.avatar.url(:thumb), class: "img-thumbnail"), dashboard_path(@board.member.membername)%>
     </div>
     <div class="col-md-11">
       <div class="row">

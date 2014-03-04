@@ -20,7 +20,7 @@ class BoardsController < ApplicationController
     @board = Board.new(board_params)
     @board.member_id = current_member.id
     if @board.save
-      redirect_to dashboard_path, notice: 'Board was successfully created.'
+      redirect_to dashboard_path(@board.member.membername), notice: 'Board was successfully created.'
     else
       render action: 'new'
     end
@@ -35,8 +35,9 @@ class BoardsController < ApplicationController
   end
 
   def destroy
+    membername = @board.member.membername
     @board.destroy
-    redirect_to dashboard_path
+    redirect_to dashboard_path(membername)
   end
 
   private

@@ -18,3 +18,5 @@
 /public/system
 /public/uploads
 /spec/support/uploads
+# Ignore application configuration
+/config/application.yml

@@ -19,11 +19,11 @@
   <br/>
   <div class="row">
     <div class="col-md-3">
-      <%= link_to image_tag(@pin.board.member.avatar.url(:thumb)), dashboard_path(id: @pin.board.member.membername)%>
+      <%= link_to image_tag(@pin.board.member.avatar.url(:thumb)), dashboard_path(@pin.board.member.membername)%>
     </div>
     <div class="col-md-6">
       <div class="row">
-        <%= link_to @pin.board.member.fullname, dashboard_path(id: @pin.board.member.membername) %>
+        <%= link_to @pin.board.member.fullname, dashboard_path(@pin.board.member.membername) %>
       </div>
       <div class="row">
         <p><%= @pin.description %></p>

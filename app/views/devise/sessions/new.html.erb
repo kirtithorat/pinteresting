@@ -1,6 +1,15 @@
 <div class = "pt_container pt_bg_color pt_center center-block">
   <h2>Log In</h2>
-  <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>    
+  <%= link_to "Log In with Twitter", member_omniauth_authorize_path(:twitter), :class => "btn btn-default btn-lg" %>
+  <br />
+  <br />
+  <%= link_to "Log In with Facebook", member_omniauth_authorize_path(:facebook), :class => "btn btn-default btn-lg" %>
+  <br />
+  <br />
+  <%= link_to "Log In with Google+", member_omniauth_authorize_path(:google_oauth2), :class => "btn btn-default btn-lg" %>
+  <br />
+  <br />
+  <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
     <div class="form-group">
       <span class="glyphicon glyphicon-user"></span>
       <%= f.email_field :email, :autofocus => true, :placeholder => "Email" %>

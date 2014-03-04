@@ -19,33 +19,42 @@
             <%= msg %>
           </p>
         <% end %>
+        <% if resource.provider == "twitter" && resource.email.empty? %>
+          <p>
+            Twitter does not share your mail. Please enter email.
+          </p>
+        <% end %>
       </div>
     <% end %>
-    <div class="form-group">
-      <%= f.text_field :firstname, :placeholder => "First Name" ,:autofocus => true %>
-      <%= f.text_field :lastname, :placeholder => "Last Name" %>
-    </div>
+    <% if resource.password_required? %>
+      <div class="form-group">
+        <%= f.text_field :firstname, :placeholder => "First Name" ,:autofocus => true %>
+        <%= f.text_field :lastname, :placeholder => "Last Name" %>
+      </div>
+    <% end %>
     <div class="form-group">
       <span class="glyphicon glyphicon-user"></span>
       <%= f.email_field :email, :placeholder => "Email Address" %>
     </div>
-    <div class="form-group">
-      <span class="glyphicon glyphicon-lock"></span>
-      <%= f.password_field :password, :placeholder => "Password" %>
-    </div>
-    <div class="form-group">
-      <span class="glyphicon glyphicon-lock"></span>
-      <%= f.password_field :password_confirmation , :placeholder => "Confirm Password"%>
-    </div>
-    <div class="form-group">
-      <%= f.select :location, ["United States", "India", "UK"] %>
-    </div>
-    <div class="form-group">
-      <%= f.radio_button :gender, :female  %>
-      <%= f.label :female %>
-      <%= f.radio_button :gender, :male %>
-      <%= f.label :male %>
-    </div>
+    <% if resource.password_required? %>
+      <div class="form-group">
+        <span class="glyphicon glyphicon-lock"></span>
+        <%= f.password_field :password, :placeholder => "Password" %>
+      </div>
+      <div class="form-group">
+        <span class="glyphicon glyphicon-lock"></span>
+        <%= f.password_field :password_confirmation , :placeholder => "Confirm Password"%>
+      </div>
+      <div class="form-group">
+        <%= f.select :location, ["United States", "India", "UK"] %>
+      </div>
+      <div class="form-group">
+        <%= f.radio_button :gender, :female  %>
+        <%= f.label :female %>
+        <%= f.radio_button :gender, :male %>
+        <%= f.label :male %>
+      </div>
+    <% end %>
     <div class="form-group">
       <%= f.submit "Join", class: "btn btn-primary" %>
       <!-- 

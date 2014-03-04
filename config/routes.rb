@@ -1,14 +1,14 @@
 Pinteresting::Application.routes.draw do
 
   root 'welcome#index'
-  devise_for :members, :controllers => { :registrations => :registrations }
+  devise_for :members, :controllers => { registrations: :registrations, omniauth_callbacks: :omniauth_callbacks }
 
-  get "dashboard", :to => "members#dashboard"
-  
-  get ":id", :to => "members#dashboard"
+  get "dashboard/:membername", :to => "members#dashboard", :as  => "dashboard"
+
+  get ":membername", :to => "members#dashboard", :as => "profile"
 
   resources :boards do
-      resources :pins, :shallow => true
+    resources :pins, :shallow => true
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

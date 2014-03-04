@@ -13,11 +13,11 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    dashboard_path
+    dashboard_path(resource.membername)
   end
 
   def after_sign_up_path_for(resource)
-    dashboard_path
+    dashboard_path(resource.membername)
   end
 
 end

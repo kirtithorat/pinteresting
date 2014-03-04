@@ -13,6 +13,10 @@ gem 'mini_magick'
 gem 'bootstrap-sass'
 gem 'will_paginate', '~> 3.0'
 gem 'will_paginate-bootstrap'
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
+gem 'figaro'
 
 group :development, :test do
   gem 'sqlite3'

@@ -28,5 +28,4 @@ describe Board do
   it "is invalid without an associated member" do
     expect(build(:board, member_id: nil)).to have(1).errors_on(:member_id)
   end
-
 end

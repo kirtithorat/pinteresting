@@ -2,6 +2,7 @@ require 'mini_magick'
 
 class Pin < ActiveRecord::Base
   belongs_to :board
+  belongs_to :member
   # When :path and :url are not specified in "has_attached_file" then Paperclip
   # will use its default path and default url as shown below:
   # :path => :rails_root/public/system/:class/:attachment/:id_partition/:style/:filename

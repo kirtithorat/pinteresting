@@ -1,12 +1,15 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <% if member_signed_in? %>
-      <%= link_to image_tag("/assets/images/pinterest_nav.png", alt: "Pinteresting"), dashboard_path, id: "pt_logo" %>
+      <%= link_to image_tag("/assets/images/pinterest_nav.png", alt: "Pinteresting"), dashboard_path(current_member.membername), id: "pt_logo" %>
       <ul class="nav nav-pills pull-right">
         <li>
-          <%= link_to  new_board_pin_path(Board.first) do %>
-            <span class="glyphicon glyphicon-plus">
-            </span> New Pin
+          <% if current_member.boards.count > 0 %>
+            <%= link_to  new_board_pin_path(current_member.boards.first) do %>
+              <span class="glyphicon glyphicon-plus">
+              </span>
+              New Pin
+            <% end %>
           <% end %>
         </li>
         <li>

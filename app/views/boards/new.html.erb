@@ -16,7 +16,7 @@
     </div>
     <div class="form-group">
       <div>
-        <%= link_to "Cancel", dashboard_path, :class => "btn btn-default col-sm-offset-2" %>
+        <%= link_to "Cancel", dashboard_path(current_member.membername), :class => "btn btn-default col-sm-offset-2" %>
         <%= f.submit :class => "btn btn-primary" %>
       </div>
     </div>
