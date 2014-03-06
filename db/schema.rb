@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140303202529) do
+ActiveRecord::Schema.define(version: 20140305005200) do
 
   create_table "boards", force: true do |t|
     t.string   "name",        null: false
@@ -48,13 +48,22 @@ ActiveRecord::Schema.define(version: 20140303202529) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.string   "provider"
-    t.string   "uid"
+    t.boolean  "oauth_flag",             default: false
   end
 
   add_index "members", ["email"], name: "index_members_on_email", unique: true
   add_index "members", ["membername"], name: "index_members_on_membername", unique: true
   add_index "members", ["reset_password_token"], name: "index_members_on_reset_password_token", unique: true
+
+  create_table "oauth_members", force: true do |t|
+    t.string   "uid"
+    t.string   "provider"
+    t.integer  "member_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "oauth_members", ["member_id"], name: "index_oauth_members_on_member_id"
 
   create_table "pins", force: true do |t|
     t.text     "description",        null: false

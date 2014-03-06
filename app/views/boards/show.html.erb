@@ -20,7 +20,7 @@
         <br/>
         <p class="col-md-5">
           <strong>
-            <%= link_to @board.member.fullname, dashboard_path(id: @board.member.membername) %>
+            <%= link_to @board.member.fullname, dashboard_path(@board.member.membername) %>
           </strong>
         </p>
         <% if member_signed_in? %>

@@ -5,6 +5,7 @@ class Member < ActiveRecord::Base
     :recoverable, :rememberable, :trackable, :validatable
   has_many :boards, dependent: :destroy
   has_many :pins, through: :boards
+  has_many :oauth_members
 
   validates :firstname, :location, presence: true
   validates :membername, presence: true, uniqueness: true,
@@ -29,7 +30,7 @@ class Member < ActiveRecord::Base
     :size => {:in => 0..50.kilobytes}
 
   def fullname
-    self.firstname + " " + self.lastname
+    self.firstname + " " + (self.lastname.nil? ? "" : self.lastname)
   end
 
   def pincount
@@ -47,22 +48,51 @@ class Member < ActiveRecord::Base
 
   def self.from_omniauth(auth)
     ### handle for unique membername
-    where(auth.slice(:provider, :uid)).first_or_create do |member|
-      member.provider = auth.provider
-      member.uid = auth.uid
-      member.membername = Time.now.to_i
-      name = auth.info.name.split(" ",2)
-      member.firstname = name[0]
-      member.lastname = name[1]
-      unless auth.info.location.nil?
-        member.location = auth.info.location.split(",")[1].strip
-      end
-      if auth.provider == 'twitter'
-        member.email = "#{auth.info.nickname}@startupora.com"
-      else
-        member.email = auth.info.email
-      end
+    if auth.provider == 'twitter'
+      email = "#{auth.info.nickname}@startupora.com"
+    else
+      email = auth.info.email
     end
+
+    member = where(email: email.downcase)
+
+    if !member.empty?
+      member = member.first
+      OauthMember.where(auth.slice(:provider, :uid)).first_or_create do |oauth_member|
+        oauth_member.provider = auth.provider
+        oauth_member.uid = auth.uid
+        oauth_member.member_id = member.id
+      end
+    else
+      if auth.provider == 'twitter'
+        oauth_member = OauthMember.find_by(provider: auth.provider, uid: auth.uid)
+      end
+      unless oauth_member.nil?
+        member = create do |member|
+          member.membername = Time.now.to_i
+          name = auth.info.name.split(" ",2)
+          member.firstname = name[0]
+          member.lastname = name[1]
+          unless auth.info.location.nil?
+            member.location = auth.info.location.split(",")[1].strip
+          end
+          if auth.provider == 'twitter'
+            member.email = "#{auth.info.nickname}@startupora.com"
+          else
+            member.email = auth.info.email
+          end
+          member.oauth_flag = true
+        end ## end of block member
+        OauthMember.create do |oauth_member|
+          oauth_member.provider = auth.provider
+          oauth_member.uid = auth.uid
+          oauth_member.member_id = member.id
+        end ## end of block oauth_member
+      else
+        member = Member.find_by(oauth_member.member_id)
+      end ## end of oauth_member nil check
+    end ## end of else
+    member
   end
 
   def self.new_with_session(params, session)
@@ -77,7 +107,10 @@ class Member < ActiveRecord::Base
   end
 
   def password_required?
-    super && provider.blank?
+    false
   end
 
+  def show_password_fields?
+    !oauth_flag
+  end
 end

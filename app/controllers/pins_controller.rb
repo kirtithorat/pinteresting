@@ -15,6 +15,7 @@ class PinsController < ApplicationController
 
   def create
     @pin = Pin.new(pin_params)
+    @pin.member_id = current_member.id
     if @pin.save
       redirect_to board_path(@pin.board_id), notice: 'Pin was successfully created.'
     else
@@ -31,9 +32,8 @@ class PinsController < ApplicationController
   end
 
   def destroy
-    board = @pin.board
     @pin.destroy
-    redirect_to board_path(board.id)
+    redirect_to board_path(@pin.board)
   end
 
   private
