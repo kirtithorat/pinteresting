@@ -17,7 +17,8 @@ describe BoardsController do
   describe "POST #create:" do
 
     before(:each){
-      sign_in FactoryGirl.create(:member)
+      @member = FactoryGirl.create(:member)
+      sign_in @member
     }
 
     context "with valid attributes" do
@@ -30,7 +31,7 @@ describe BoardsController do
 
       it "and redirects to dashboard page" do
         post :create, :board => attributes_for(:board)
-        expect(response).to redirect_to :dashboard
+        expect(response).to redirect_to dashboard_path(@member.membername)
       end
 
     end
@@ -121,7 +122,7 @@ describe BoardsController do
 
     it "and redirects to dashboard page" do
       delete :destroy, id: board
-      expect(response).to redirect_to :dashboard
+      expect(response).to redirect_to dashboard_path(board.member.membername)
     end
 
   end

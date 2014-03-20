@@ -14,8 +14,8 @@ class PinsController < ApplicationController
   end
 
   def create
+    params[:pin][:member_id] = current_member.id
     @pin = Pin.new(pin_params)
-    @pin.member_id = current_member.id
     if @pin.save
       redirect_to board_path(@pin.board_id), notice: 'Pin was successfully created.'
     else
@@ -46,7 +46,7 @@ class PinsController < ApplicationController
   end
 
   def pin_params
-    params.require(:pin).permit(:description, :image, :board_id)
+    params.require(:pin).permit(:description, :image, :board_id, :member_id)
   end
 
 end

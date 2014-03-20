@@ -4,8 +4,9 @@ describe MembersController do
 
   it "renders dashboard page" do
     @request.env["devise.mapping"] = Devise.mappings[:member]
-    sign_in create(:member)
-    get :dashboard
+    member = create(:member)
+    sign_in member
+    get :dashboard, member.attributes
     expect(response).to render_template :dashboard
   end
 

@@ -61,7 +61,8 @@ describe PinsController do
 
   describe "GET #show" do
     it "renders show pin page" do
-      pin = create(:pin)
+      board = create(:board)
+      pin = create(:pin, board_id: board.id, member_id: board.member.id)
       member = pin.board.member
       sign_in member
       get :show, id: pin
@@ -73,7 +74,8 @@ describe PinsController do
   describe "GET #edit" do
 
     it "renders edit pin page" do
-      pin = create(:pin)
+      board = create(:board)
+      pin = create(:pin, board_id: board.id, member_id: board.member.id)
       member = pin.board.member
       sign_in member
       get :edit, id: pin
@@ -84,7 +86,8 @@ describe PinsController do
 
   describe "PATCH #update:" do
 
-    let(:pin) { FactoryGirl.create(:pin) }
+    let(:board) { FactoryGirl.create(:board) }
+    let(:pin) { FactoryGirl.create(:pin, board_id: board.id, member_id: board.member.id) }
 
     before(:each){
       sign_in pin.board.member
@@ -123,7 +126,8 @@ describe PinsController do
 
   describe "DELETE #destroy" do
 
-    let(:pin) { FactoryGirl.create(:pin) }
+    let(:board) { FactoryGirl.create(:board) }
+    let(:pin) { FactoryGirl.create(:pin, board_id: board.id, member_id: board.member.id) }
 
     before(:each){
       sign_in pin.board.member

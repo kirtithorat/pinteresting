@@ -26,7 +26,7 @@
         <% end %>
       </div>
     <% end %>
-    <% if resource.password_required? %>
+    <% if resource.show_password_fields? %>
       <div class="form-group">
         <%= f.text_field :firstname, :placeholder => "First Name" ,:autofocus => true %>
         <%= f.text_field :lastname, :placeholder => "Last Name" %>
@@ -36,7 +36,7 @@
       <span class="glyphicon glyphicon-user"></span>
       <%= f.email_field :email, :placeholder => "Email Address" %>
     </div>
-    <% if resource.password_required? %>
+    <% if resource.show_password_fields? %>
       <div class="form-group">
         <span class="glyphicon glyphicon-lock"></span>
         <%= f.password_field :password, :placeholder => "Password" %>
