@@ -14,12 +14,12 @@ describe Member do
     expect(build(:member, avatar: nil)).to have(0).errors_on(:avatar)
   end
 
-  it "is invalid without a firstname" do
-    expect(build(:member, firstname: nil)).to have(2).errors_on(:firstname)
+  it "is valid without a lastname" do
+    expect(build(:member, lastname: nil)).to have(0).errors_on(:lastname)
   end
 
-  it "is invalid without a lastname" do
-    expect(build(:member, lastname: nil)).to have(2).errors_on(:lastname)
+  it "is invalid without a firstname" do
+    expect(build(:member, firstname: nil)).to have(2).errors_on(:firstname)
   end
 
   it "is invalid without an email" do
@@ -69,7 +69,8 @@ describe Member do
   end
 
   it "#pincount: returns the number of Pin's uploaded by a Member" do
-    pin = create(:pin)
+    board = create(:board)
+    pin = create(:pin, member_id: board.member.id, board_id: board.id)
     board = Board.find_by(id: pin.board_id)
     member = Member.find_by(id: board.member_id)
     expect(member.pincount).to eq 1

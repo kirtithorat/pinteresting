@@ -57,9 +57,9 @@ describe "Launch Application" do
       end
 
       it { page.should have_link("Edit", :href => edit_member_registration_path) }
-
+=begin
       it { page.should have_link("Create a Board", :href => new_board_path) }
-
+=end
     end
 
     context "Upon clicking on Log In link" do
@@ -92,7 +92,7 @@ describe "Launch Application" do
           context "when no boards and no pins" do
 
             before(:each) do
-              FactoryGirl.create(:member)
+              member = FactoryGirl.create(:member)
               fill_in "Email", with: logged_member.email
               fill_in "Password", with: logged_member.password
               click_button "Log In"
@@ -100,7 +100,7 @@ describe "Launch Application" do
 
             it "authenticate member and visit Dashboard" do
               expect(page.status_code).to be 200
-              expect(current_url).to eq dashboard_url
+              expect(current_url).to eq dashboard_url(member.membername)
             end
 
             describe "where it:" do
@@ -110,11 +110,10 @@ describe "Launch Application" do
           end
 
           context "when boards and or pins exists" do
-            FactoryGirl.create(:member)
-
 
             before(:each) do
-              FactoryGirl.create(:pin)
+              board = FactoryGirl.create(:board)
+              @pin = FactoryGirl.create(:pin, board_id: board.id, member_id: board.member.id)
               fill_in "Email", with: logged_member.email
               fill_in "Password", with: logged_member.password
               click_button "Log In"
@@ -122,7 +121,7 @@ describe "Launch Application" do
 
             it "authenticate member and visit member Dashboard" do
               expect(page.status_code).to be 200
-              expect(current_url).to eq dashboard_url
+              expect(current_url).to eq dashboard_url(@pin.member.membername)
             end
 
             describe "where it:" do
@@ -211,6 +210,7 @@ describe "Launch Application" do
     If you have an "image button" then the above could be written as below: 
     it { page.should have_selector("input[type = 'image'][src = 'submit.jpg'][name = 'commit'][value = 'Join']") }
 =end
+
         context "Upon clicking on Cancel link" do
 
           it "Display Home Page" do
@@ -252,6 +252,7 @@ describe "Launch Application" do
           they must be permitted in the application controller as they won't be stored 
           in database. 
 =end  
+
             expect(member.firstname).to eq logged_member.firstname
             expect(member.lastname).to eq logged_member.lastname
             expect(member.location).to eq logged_member.location
@@ -261,7 +262,7 @@ describe "Launch Application" do
 
           it "and Dashboard Page is displayed for that member" do
             expect(page.status_code).to be 200
-            expect(current_url).to eq dashboard_url
+            expect(current_url).to eq dashboard_url(member.membername)
           end
 
           describe "where it:" do
@@ -270,7 +271,7 @@ describe "Launch Application" do
             context "Upon clicking on Create a Board link" do
 
               before(:each) do
-                click_link "Create a Board"
+                click_link "Create Board"
               end
 
               it "Display New Board page" do
@@ -293,7 +294,7 @@ describe "Launch Application" do
 
                 it { page.should have_select("Category") }
 
-                it { page.should have_link("Cancel", href: dashboard_path) }
+                it { page.should have_link("Cancel") }
 
                 it { page.should have_button("Create Board") }
 
@@ -316,7 +317,7 @@ describe "Launch Application" do
 
                     it "with new board details" do
                       expect(page.status_code).to be 200
-                      expect(current_url).to eq dashboard_url
+                      expect(current_url).to eq dashboard_url(member.membername)
                       expect(page).to have_text("#{member.boards[0].name}")
                     end
 
@@ -379,7 +380,7 @@ describe "Launch Application" do
 
                               it "and Dashboard Page is displayed" do
                                 expect(page.status_code).to be 200
-                                expect(current_url).to eq dashboard_url
+                                expect(current_url).to eq dashboard_url(member.membername)
                               end
                             end
 
@@ -578,22 +579,11 @@ describe "Launch Application" do
 
                         end
 
-
-
-
-
-
-
-
-
                       end
 
                     end
 
-
                   end
-
-
 
                 end
 
@@ -602,7 +592,7 @@ describe "Launch Application" do
                   it "Display Dashboard Page" do
                     click_link "Cancel"
                     expect(page.status_code).to be 200
-                    expect(current_url).to eq dashboard_url
+                    expect(current_url).to eq dashboard_url(member.membername)
                   end
 
                 end
@@ -626,8 +616,6 @@ describe "Launch Application" do
 
                 it { page.should have_field("Email Address", :type => "email", :with => logged_member.email ) }
 
-                it { page.should have_field("Current Password", :type => "password") }
-
                 it { page.should have_field("New Password", :type => "password") }
 
                 it { page.should have_field("Confirm New Password", :type => "password") }
@@ -638,7 +626,7 @@ describe "Launch Application" do
 
                 it { page.should have_link("Deactivate Account") }
 
-                it { page.should have_link("Cancel", :href => dashboard_path) }
+                it { page.should have_link("Cancel") }
 
                 it { page.should have_button("Save Profile") }
 
@@ -666,7 +654,7 @@ describe "Launch Application" do
                 it "Display Dashboard Page" do
                   click_link "Cancel"
                   expect(page.status_code).to be 200
-                  expect(current_url).to eq dashboard_url
+                  expect(current_url).to eq dashboard_url(member.membername)
                 end
 
               end
@@ -675,7 +663,6 @@ describe "Launch Application" do
               context "Upon submitting form by clicking on Save Profile button" do
 
                 before :each do
-                  fill_in "Current Password", :with => logged_member.password
                   fill_in "member_firstname", :with => "Jack"
                   fill_in "About You", with: "I love Music, Fashion and Food."
                   attach_file("Avatar", "#{Rails.root}/spec/support/avatar.png")
@@ -691,15 +678,12 @@ describe "Launch Application" do
 
                 it "and Dashboard Page is displayed" do
                   expect(page.status_code).to be 200
-                  expect(current_url).to eq dashboard_url
+                  expect(current_url).to eq dashboard_url(member.membername)
                 end
 
               end
 
             end
-
-
-
 
           end
 

@@ -34,12 +34,7 @@ class Member < ActiveRecord::Base
   end
 
   def pincount
-    @pincount = 0
-
-    self.boards.each do |board|
-      @pincount += board.pins.count
-    end
-    @pincount
+    @pincount = self.pins.count
   end
 
   def boardcount
@@ -107,7 +102,7 @@ class Member < ActiveRecord::Base
   end
 
   def password_required?
-    false
+    super && !oauth_flag
   end
 
   def show_password_fields?

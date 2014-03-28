@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   #  << :description << :gender << :location << :avatar_file_name << :avatar_content_type \
    # << :avatar_file_size << :avatar_updated_at << :avatar << :oauth_flag
    devise_parameter_sanitizer.for(:account_update){ |u| 
-      u.permit(:email,:password, :password_confirmation, :firstname, :lastname, :membername, :description , :gender, :location , :avatar_file_name , :avatar_content_type , :avatar_file_size , :avatar_updated_at , :avatar , :oauth_flag) 
+      u.permit(:email,:password, :password_confirmation, :firstname, :lastname, :membername, :description , :gender, :location  , :avatar , :oauth_flag) 
     }
   end
 

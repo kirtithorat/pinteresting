@@ -23,3 +23,4 @@ class ImageEncodingValidator < ActiveModel::EachValidator
   end
 
 end
+

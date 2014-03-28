@@ -41,7 +41,7 @@
   <% if member_signed_in? %>
     <div class="col-sm-5 col-md-3">
       <div>
-        <%= link_to image_tag("/assets/images/add_pin.png"), new_board_pin_path(@board.id) %>
+        <%= link_to image_tag("/assets/images/add_pin.png", alt: "Add a Pin"), new_board_pin_path(@board.id) %>
       </div>
     </div>
   <% end %>

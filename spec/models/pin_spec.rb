@@ -7,7 +7,8 @@ describe Pin do
   end
 
   it "is uploaded at specified location" do
-    pin = create(:pin)
+    board = create(:board)
+    pin = create(:pin, member_id: board.member.id, board_id: board.id)
     expect(pin.image.path).to eq "#{Rails.root}/public/uploads/pins/images/#{pin.id}/original/#{pin.image_file_name}"
   end
 

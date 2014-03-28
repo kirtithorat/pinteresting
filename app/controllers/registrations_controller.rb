@@ -24,7 +24,6 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def edit
-    puts resource.inspect
   end
 
   protected

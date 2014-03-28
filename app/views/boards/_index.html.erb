@@ -2,7 +2,7 @@
   <% if member_signed_in? %>
     <div class="col-sm-5 col-md-3">
       <div>
-        <%= link_to image_tag("/assets/images/create_board.png"), new_board_path %>
+        <%= link_to image_tag("/assets/images/create_board.png", alt: "Create Board"), new_board_path %>
       </div>
     </div>
   <% end %>

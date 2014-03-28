@@ -19,11 +19,6 @@
             <%= msg %>
           </p>
         <% end %>
-        <% if resource.provider == "twitter" && resource.email.empty? %>
-          <p>
-            Twitter does not share your mail. Please enter email.
-          </p>
-        <% end %>
       </div>
     <% end %>
     <% if resource.show_password_fields? %>
