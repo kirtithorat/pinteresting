@@ -237,7 +237,7 @@ describe "Launch Application" do
             fill_in "Email Address", with: logged_member.email
             fill_in "Password", with: logged_member.password
             fill_in "Confirm Password", with: logged_member.password
-            select logged_member.location, from: "member_location"
+            select "United States", from: "member_location"
             choose "member_gender_male"
             click_button "Join"
           end

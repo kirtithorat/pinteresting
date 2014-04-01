@@ -9,12 +9,12 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up) << :firstname << :lastname << :membername << :gender \
-    << :location << :oauth_flag
-  #  devise_parameter_sanitizer.for(:account_update) << :firstname << :lastname << :membername \
-  #  << :description << :gender << :location << :avatar_file_name << :avatar_content_type \
-   # << :avatar_file_size << :avatar_updated_at << :avatar << :oauth_flag
-   devise_parameter_sanitizer.for(:account_update){ |u| 
-      u.permit(:email,:password, :password_confirmation, :firstname, :lastname, :membername, :description , :gender, :location  , :avatar , :oauth_flag) 
+      << :location << :oauth_flag
+    #  devise_parameter_sanitizer.for(:account_update) << :firstname << :lastname << :membername \
+    #  << :description << :gender << :location << :avatar_file_name << :avatar_content_type \
+    # << :avatar_file_size << :avatar_updated_at << :avatar << :oauth_flag
+    devise_parameter_sanitizer.for(:account_update){ |u|
+      u.permit(:email,:password, :password_confirmation, :firstname, :lastname, :membername, :description , :gender, :location  , :avatar , :oauth_flag)
     }
   end
 
