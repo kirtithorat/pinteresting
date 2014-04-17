@@ -19,9 +19,9 @@
           <% if pincount > 0 %>
             <%= link_to board do %>
               <div class="pt_thumbnail_img center-block">
-                <%= image_tag board.pins.first.image.url(:medium)%>
+                <%= image_tag board.pins.first.image.url(:medium), width: 228%>
                 <div class="pt_change_cover">
-                 <button>Change Cover </button>
+                 <!-- <button>Change Cover </button> -->
                 </div>
               </div>
             <% end %>
@@ -29,7 +29,7 @@
             <div>
               <% board.pins.each do |pin| %>
                 <div class="pt_thumbnail_icon">
-                  <%= image_tag pin.image.url(:icon) %>
+                  <%= image_tag pin.image.url(:thumb) %>
                 </div>
                 <% pincount += 1 %>
                 <% if pincount==4 %>

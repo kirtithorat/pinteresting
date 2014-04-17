@@ -19,9 +19,9 @@ class Member < ActiveRecord::Base
   validates :firstname, :lastname, length: { maximum: 25 }
 
   has_attached_file :avatar,
-    :styles => { :thumb => "100x100>" },
-    :path => '/Users/kirti/Dropbox/Projects/RubyonRails/pinteresting/public/uploads/:class/:attachment/:id/:style/:basename.:extension',
-    :url => '/uploads/:class/:attachment/:id/:style/:basename.:extension'
+    :styles => { :thumb => "100x100>" }
+    #:path => '/Users/kirti/Dropbox/Projects/RubyonRails/pinteresting/public/uploads/:class/:attachment/:id/:style/:basename.:extension',
+    #:url => '/uploads/:class/:attachment/:id/:style/:basename.:extension'
 
 
   validates :avatar, image_encoding: true
