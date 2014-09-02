@@ -1,16 +1,18 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.2'
-gem 'sass-rails', '~> 4.0.0'
+ruby '2.1.0'
+gem 'rails', '4.1.0'
+gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
-gem 'jbuilder', '~> 1.2'
+gem 'jbuilder', '~> 2.0'
 gem 'devise', '~> 3.2.2'
 gem "paperclip", "~> 4.1"
 gem 'mini_magick'
 gem 'bootstrap-sass'
+gem 'spring',        group: :development
 gem 'will_paginate', '~> 3.0'
 gem 'will_paginate-bootstrap'
 gem 'omniauth-twitter'
